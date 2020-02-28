@@ -1,8 +1,26 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
   return(
-    <h1>Login</h1>
+    <div>
+      <Link to={{
+        pathname:'/signup',
+        state: { 
+          userType: 'city' 
+        }
+      }}>
+        City
+      </Link>
+      <Link to={{
+        pathname:'/signup',
+        state: { 
+          userType: 'tourist' 
+        }
+      }}>
+        Tourist
+      </Link>
+    </div>
   )
 }
 

@@ -1,14 +1,32 @@
 import React from 'react'
+import { Redirect, useLocation } from 'react-router-dom'
 
 import CityForm from '../cities/CityForm'
+import TouristForm from '../tourists/TouristForm'
 
 const Signup = () => {
-  return(
-    <div>
-      <h1>Sign up</h1>
-      <CityForm/>
-    </div>
-  )
+  const location = useLocation()
+
+  if (!location.state) {
+    return(
+      <Redirect to='/login' />
+    )
+  } 
+  
+  switch (location.state.userType) {
+    case 'city':
+      return(
+        <CityForm/>
+      )
+    case 'tourist':
+      return(
+        <TouristForm/>
+      )  
+    default:
+      return(
+        <Redirect to='/login' />
+      )
+  }
 }
 
 export default Signup

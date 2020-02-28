@@ -21,12 +21,12 @@ class CityForm extends React.Component {
         name: '',
         country: '',
         email: '',
-        password: null,
+        password: '',
         photo: ''
       },
       errors: {
-        email: false,
-        password: false
+        email: true,
+        password: true
       },
       touch: {}
     }
@@ -66,8 +66,25 @@ class CityForm extends React.Component {
       ...this.state.data
     }
 
-
-
+    RoutristService.signupCity(city)
+      .then(city => {
+        this.setState({
+          errors: {
+            email: false,
+            password: false
+          }
+        })
+        console.log(city)
+      })
+      .catch(error => {
+        const { message, errors } = error.response.data
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            ...errors,
+          }
+        })
+      })
   }
 
   render() {
