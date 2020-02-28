@@ -9,7 +9,7 @@ const Signup = () => {
 
   if (!location.state) {
     return(
-      <Redirect to='/login' />
+      <Redirect to='/' />
     )
   } 
   
@@ -24,7 +24,7 @@ const Signup = () => {
       )  
     default:
       return(
-        <Redirect to='/login' />
+        <Redirect to='/' />
       )
   }
 }

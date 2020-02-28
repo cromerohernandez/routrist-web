@@ -74,14 +74,13 @@ class CityForm extends React.Component {
             password: false
           }
         })
-        console.log(city)
       })
       .catch(error => {
-        const { message, errors } = error.response.data
+        const { /*message,*/ errors } = error.response.data
         this.setState({
           errors: {
             ...this.state.errors,
-            ...errors,
+            ...errors
           }
         })
       })
@@ -93,9 +92,9 @@ class CityForm extends React.Component {
 
     return(
       <div className="CityForm">
+        <h3>Sign up as City</h3>
         <form onSubmit={this.handleSubmit}>
           <div>
-            <label>Name</label>
             <input
               type="text"
               name="name"
@@ -107,7 +106,6 @@ class CityForm extends React.Component {
           </div>
 
           <div>
-            <label>Country</label>
             <input
               type="text"
               name="country"
@@ -119,7 +117,6 @@ class CityForm extends React.Component {
           </div>
 
           <div>
-            <label>Email</label>
             <input
               type="text"
               name="email"
@@ -136,7 +133,6 @@ class CityForm extends React.Component {
           </div>
 
           <div>
-            <label>Password</label>
             <input
               type="text"
               name="password"
@@ -153,7 +149,6 @@ class CityForm extends React.Component {
           </div>
 
           <div>
-            <label>Photo</label>
             <input
               type="text"
               name="photo"

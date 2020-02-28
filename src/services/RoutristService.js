@@ -8,6 +8,16 @@ const http = axios.create({
 //cities
 const signupCity = (city) => http.post('/cities/new', city)
 
+//tourists
+const signupTourist = (tourist) => http.post('/tourists/new', tourist)
+
+//sessions
+const login = ({ email, password }) => http.post('/login', { email, password })
+const logout = () => http.post('/logout')
+
 export default {
-  signupCity
+  signupCity,
+  signupTourist,
+  login,
+  logout
 }
