@@ -21,7 +21,12 @@ const setSort = (sort, sortDirection, param) => {
   return { sort, sortDirection }
 }
 
+const setSearch = () => {
+
+}
+
 export default {
   setCategory,
-  setSort
+  setSort,
+  setSearch
 }

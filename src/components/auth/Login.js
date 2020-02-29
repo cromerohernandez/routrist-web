@@ -124,7 +124,7 @@ class Login extends React.Component {
         </div>
 
         <div>
-          <h6>Sing up:</h6>
+          <h6>Sign up:</h6>
 
           <Link to={{
             pathname:'/signup',
