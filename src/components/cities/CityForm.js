@@ -1,5 +1,4 @@
 import React from 'react'
-
 import RoutristService from '../../services/RoutristService'
 
 // eslint-disable-next-line
@@ -76,7 +75,7 @@ class CityForm extends React.Component {
         })
       })
       .catch(error => {
-        const { /*message,*/ errors } = error.response.data
+        const { errors } = error.response.data
         this.setState({
           errors: {
             ...this.state.errors,
@@ -134,7 +133,7 @@ class CityForm extends React.Component {
 
           <div>
             <input
-              type="text"
+              type="password"
               name="password"
               placeholder="Password"
               value={data.password}

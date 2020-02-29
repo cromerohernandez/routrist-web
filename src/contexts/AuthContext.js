@@ -1,5 +1,4 @@
 import React from 'react'
-
 import RoutristService from '../services/RoutristService'
 
 const AuthContext = React.createContext()
@@ -17,7 +16,7 @@ export class AuthContextProvider extends React.Component {
   logout = () => {
     RoutristService.logout()
       .then(() => {
-        this.setUser()
+        this.setUser({})
       })
   }
 

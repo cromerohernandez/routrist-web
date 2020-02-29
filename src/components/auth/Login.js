@@ -1,8 +1,6 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
-
 import RoutristService from '../../services/RoutristService'
 
 // eslint-disable-next-line
@@ -23,7 +21,8 @@ class Login extends React.Component {
         email: true,
         password: true
       },
-      touch: {}
+      touch: {},
+      invalid: false
     }
   
 
@@ -57,45 +56,25 @@ class Login extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    const user = this.state.data
-
-    this.setState(() => {  //??????????????
-      RoutristService.login(user)
-        .then(user => {
-          console.log(`${this.props.currentUser}`)
-          //this.props.setUser(user)
-        })
-        /*.catch(error => {
-          const { message, errors } = error.response.data
-          this.setState({
-            errors: {
-              ...this.state.errors,
-              ...errors
-            }
-          })
-        })*/
-    })
-  }
-
-  handleSubmitOut = (event) => {
-    RoutristService.logout()
-      .then(() => {
-        return <Redirect to='/test'/>
+    RoutristService.login({ ...this.state.data })
+      .then(response => {
+        this.props.setUser(response.data)
       })
-      .catch()
+      .catch(error => {
+        const { errors } = error.response.data
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            ...errors
+          },
+          invalid: true
+        })
+      })
   }
-
-
-
-
 
   render() {
     const { data, errors, touch } = this.state
     const anyError = Object.values(errors).some(x => x)
-
-    if (this.props.currentUser) {
-      return <Redirect to='/'/>
-    }
 
     return(
       <div>
@@ -120,7 +99,7 @@ class Login extends React.Component {
 
             <div>
               <input
-                type="text"
+                type="password"
                 name="password"
                 placeholder="Password"
                 value={data.password}
@@ -129,30 +108,18 @@ class Login extends React.Component {
               />
             </div>
 
+            {this.state.invalid === true && (
+              <div>
+                Invalid email or password
+              </div>
+            )}
+
             <button disabled={anyError} type="submit">
               Log in
             </button>
 
           </form>
         </div>
-
-
-
-
-
-
-        <form onSubmit={this.handleSubmitOut}>
-            <button type="submit">
-              Log out
-            </button>
-
-        </form>
-
-
-
-
-
-
 
         <div>
           <h6>Sing up:</h6>

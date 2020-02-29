@@ -1,8 +1,6 @@
 import React from 'react'
-
 import { WithAuthConsumer } from '../../contexts/AuthContext'
-
-import Login from '../misc/Login'
+import Login from '../auth/Login'
 import CityHome from '../cities/CityHome'
 import TouristHome from '../tourists/TouristHome'
 

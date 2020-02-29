@@ -1,5 +1,4 @@
 import React from 'react'
-
 import RoutristService from '../../services/RoutristService'
 
 // eslint-disable-next-line
@@ -31,7 +30,7 @@ class TouristForm extends React.Component {
         email: true,
         password: true
       },
-      touch: {}
+      touch: {},
     }
   }
 
@@ -70,7 +69,7 @@ class TouristForm extends React.Component {
     }
 
     RoutristService.signupTourist(tourist)
-      .then(tourist => {
+      .then(() => {
         this.setState({
           errors: {
             username: true,
@@ -80,13 +79,15 @@ class TouristForm extends React.Component {
         })
       })
       .catch(error => {
-        const { /*message,*/ errors } = error.response.data
+        const { message, errors } = error.response.data
         this.setState({
           errors: {
             ...this.state.errors,
-            ...errors
+            ...errors,
+            message
           }
         })
+        console.log({errors})
       })
   }
 
@@ -95,7 +96,7 @@ class TouristForm extends React.Component {
     const anyError = Object.values(errors).some(x => x)
 
     return(
-<div className="TouristForm">
+      <div className="TouristForm">
         <h3>Sign up as Tourist</h3>
         <form onSubmit={this.handleSubmit}>
           <div>
@@ -147,14 +148,14 @@ class TouristForm extends React.Component {
             />
             {touch.email && errors.email && (
               <div>
-                Invalid email format
+                {errors.email}
               </div>
             )}
           </div>
 
           <div>
             <input
-              type="text"
+              type="password"
               name="password"
               placeholder="Password"
               value={data.password}
