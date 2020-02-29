@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import RoutristService from '../../services/RoutristService'
 
 // eslint-disable-next-line
@@ -69,26 +70,27 @@ class TouristForm extends React.Component {
     }
 
     RoutristService.signupTourist(tourist)
-      .then(() => {
-        this.setState({
-          errors: {
-            username: true,
-            email: false,
-            password: false
-          }
-        })
-      })
-      .catch(error => {
-        const { message, errors } = error.response.data
-        this.setState({
-          errors: {
-            ...this.state.errors,
-            ...errors,
-            message
-          }
-        })
-        console.log({errors})
-      })
+      .then(
+        () => {
+          this.setState({
+            errors: {
+              username: true,
+              email: false,
+              password: false
+            }
+          })
+        },
+        error => {
+          const { message, errors } = error.response
+          this.setState({
+            errors: {
+              ...this.state.errors,
+              ...errors,
+              message
+            }
+          })
+        }
+      )
   }
 
   render() {
@@ -185,6 +187,9 @@ class TouristForm extends React.Component {
           </button>
 
         </form>
+
+        <Link to="/">back</Link>
+
       </div>
     )
   }

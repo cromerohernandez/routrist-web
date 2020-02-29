@@ -57,19 +57,21 @@ class Login extends React.Component {
     event.preventDefault()
 
     RoutristService.login({ ...this.state.data })
-      .then(response => {
-        this.props.setUser(response.data)
-      })
-      .catch(error => {
-        const { errors } = error.response.data
-        this.setState({
-          errors: {
-            ...this.state.errors,
-            ...errors
-          },
-          invalid: true
-        })
-      })
+      .then(
+        response => {
+        this.props.setUser(response)
+        },
+        error => {
+          const { errors } = error.response
+          this.setState({
+            errors: {
+              ...this.state.errors,
+              ...errors
+            },
+            invalid: true
+          })
+        }
+      )
   }
 
   render() {

@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 //import AuthRoute from '../components/auth/AuthenticatedRoute' ////////////USAR!!!!
 import Home from './misc/Home'
 import Signup from './auth/Signup'
+import PlaceDetail from '../components/places/PlaceDetail'
 //import TouristHome from './tourists/TouristHome'
 
 function App() {
@@ -12,6 +13,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Home }/>
         <Route exact path="/signup" component={ Signup }/>
+
+        <Route exact path="/places/:id" component={ PlaceDetail }/>
 
         <Redirect to="/"/>
       </Switch>
