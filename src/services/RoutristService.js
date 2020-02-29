@@ -1,4 +1,5 @@
 import axios from 'axios'
+import QueryString from 'qs'
 
 const http = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -18,7 +19,12 @@ http.interceptors.response.use(
 
 //cities
 const signupCity = (city) => http.post('/cities/new', city)
-const cityPlaces = () => http.get('/cities/me/places')
+const cityPlaces = (params) => http.get('/cities/me/places', {
+  params,
+  paramsSerializer: (params) => {
+    return QueryString.stringify(params, {arrayFormat: 'repeat'})
+  }
+})
 
 //tourists
 const signupTourist = (tourist) => http.post('/tourists/new', tourist)
