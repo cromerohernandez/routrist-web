@@ -1,25 +1,25 @@
-import React from 'react';
-import '../stylesheets/App.css';
+import React from 'react'
+import '../stylesheets/App.css'
+import { Switch, Route, Redirect } from 'react-router-dom'
+//import AuthRoute from '../components/auth/AuthenticatedRoute' ////////////USAR!!!!
+import Home from './misc/Home'
+import Signup from './auth/Signup'
+import PlaceDetail from '../components/places/PlaceDetail'
+//import TouristHome from './tourists/TouristHome'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route exact path="/" component={ Home }/>
+        <Route exact path="/signup" component={ Signup }/>
+
+        <Route exact path="/places/:id" component={ PlaceDetail }/>
+
+        <Redirect to="/"/>
+      </Switch>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
