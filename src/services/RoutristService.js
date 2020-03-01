@@ -30,6 +30,7 @@ const cityPlaces = (params) => http.get('/cities/me/places', {
 const signupTourist = (tourist) => http.post('/tourists/new', tourist)
 
 //places
+const createPlace = (place) => http.post('/places/new', place)
 const placeDetail = (placeId) => http.get(`/places/${placeId}`)
 
 //sessions
@@ -40,6 +41,7 @@ export default {
   signupCity,
   cityPlaces,
   signupTourist,
+  createPlace,
   placeDetail,
   login,
   logout

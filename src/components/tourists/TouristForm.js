@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import RoutristService from '../../services/RoutristService'
+import Validation from '../auth/Validation'
 
 // eslint-disable-next-line
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -10,8 +11,15 @@ const validators = {
   lastName: val => val ? true : false,
   username:  val => val.length >= 4,
   email: val => val.match(EMAIL_PATTERN),
-  password: val => val.length >= 8,
-  photo: _ => true
+  password: val => val.length >= 8
+}
+
+const errorMessages = {
+  firstName: 'first name is required',
+  lastName: 'last name is required',
+  username: 'username needs at least 4 chars',
+  email: 'invalid email format',
+  password: 'password needs at least 8 chars'
 }
 
 class TouristForm extends React.Component {
@@ -27,11 +35,29 @@ class TouristForm extends React.Component {
         photo: ''
       },
       errors: {
-        username: true,
-        email: true,
-        password: true
+        firstName: {
+          active: true,
+          message: errorMessages.firstName
+        },
+        lastName: {
+          active: true,
+          message: errorMessages.lastName
+        },
+        username: {
+          active: true,
+          message: errorMessages.username
+        },
+        email: {
+          active: true,
+          message: errorMessages.email
+        },
+        password: {
+          active: true,
+          message: errorMessages.password
+        }
       },
       touch: {},
+      success: false
     }
   }
 
@@ -57,7 +83,10 @@ class TouristForm extends React.Component {
       },
       errors: {
         ...this.state.errors,
-        [name]: !valid
+        [name]: {
+          active: !valid,
+          message: errorMessages[name]
+        }
       }
     })
   }
@@ -74,19 +103,41 @@ class TouristForm extends React.Component {
         () => {
           this.setState({
             errors: {
-              username: true,
-              email: false,
-              password: false
-            }
+              firstName: {
+                active: true,
+                message: errorMessages.firstName
+              },
+              lastName: {
+                active: true,
+                message: errorMessages.lastName
+              },
+              username: {
+                active: true,
+                message: errorMessages.username
+              },
+              email: {
+                active: true,
+                message: errorMessages.email
+              },
+              password: {
+                active: true,
+                message: errorMessages.password
+              }
+            },
+            success: true
           })
         },
         error => {
-          const { message, errors } = error.response
+          const { errors } = error.response.data
+          const key = Object.keys(errors)[0]
+
           this.setState({
             errors: {
               ...this.state.errors,
-              ...errors,
-              message
+              [key]: {
+                active: true,
+                message: errors[key]
+              }
             }
           })
         }
@@ -94,8 +145,12 @@ class TouristForm extends React.Component {
   }
 
   render() {
-    const { data, errors, touch } = this.state
-    const anyError = Object.values(errors).some(x => x)
+    const { data, errors, touch, success } = this.state
+    const anyError = Object.values(errors).some(x => x.active)
+
+    if (success) {
+      return <Validation/>
+    }
 
     return(
       <div className="TouristForm">
@@ -105,36 +160,46 @@ class TouristForm extends React.Component {
             <input
               type="text"
               name="firstName"
-              placeholder="First name"
+              placeholder="first name"
               value={data.firstName}
               onBlur={this.handleBlur}
               onChange={this.handleChange}
             />
+            {touch.firstName && errors.firstName.active && (
+              <div>
+                { this.state.errors.firstName.message }
+              </div>
+            )}
           </div>
 
           <div>
             <input
               type="text"
               name="lastName"
-              placeholder="Last name"
+              placeholder="last name"
               value={data.lastName}
               onBlur={this.handleBlur}
               onChange={this.handleChange}
             />
+            {touch.lastName && errors.lastName.active && (
+              <div>
+                { this.state.errors.lastName.message }
+              </div>
+            )}
           </div>
 
           <div>
             <input
               type="text"
               name="username"
-              placeholder="Username"
+              placeholder="username"
               value={data.username}
               onBlur={this.handleBlur}
               onChange={this.handleChange}
             />
-            {touch.username && errors.username && (
+            {touch.username && errors.username.active && (
               <div>
-                Username needs at least 4 chars
+                { this.state.errors.username.message }
               </div>
             )}
           </div>
@@ -143,14 +208,14 @@ class TouristForm extends React.Component {
             <input
               type="text"
               name="email"
-              placeholder="Email"
+              placeholder="email"
               value={data.email}
               onBlur={this.handleBlur}
               onChange={this.handleChange}
             />
-            {touch.email && errors.email && (
+            {touch.email && errors.email.active && (
               <div>
-                {errors.email}
+                { this.state.errors.email.message }
               </div>
             )}
           </div>
@@ -159,14 +224,14 @@ class TouristForm extends React.Component {
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="password"
               value={data.password}
               onBlur={this.handleBlur}
               onChange={this.handleChange}
             />
-            {touch.password && errors.password && (
+            {touch.password && errors.password.active && (
               <div>
-                Password needs at least 8 chars
+                { this.state.errors.password.message }
               </div>
             )}
           </div>
@@ -175,9 +240,8 @@ class TouristForm extends React.Component {
             <input
               type="text"
               name="photo"
-              placeholder="Photo"
+              placeholder="photo"
               value={data.photo}
-              onBlur={this.handleBlur}
               onChange={this.handleChange}
             />
           </div>

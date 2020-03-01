@@ -105,6 +105,10 @@ class CityHome extends React.Component {
               </Link>
             ))}
           </div>
+
+          <div>
+            <Link to={'/places/new'}>Add Place</Link>
+          </div>
         </div>
 
         <form onSubmit={this.handleLogout}>
