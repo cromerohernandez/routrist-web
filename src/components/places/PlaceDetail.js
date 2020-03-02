@@ -4,7 +4,7 @@ import RoutristService from '../../services/RoutristService'
 
 class PlaceDetail extends React.Component {
   state= {
-    place: []
+    place: {}
   }
 
   componentDidMount() {
