@@ -18,6 +18,7 @@ class TouristHome extends React.Component {
         <h5>{ this.props.currentUser.username }</h5>
         <h6>{ this.props.currentUser.firstName }</h6>
         <h6>{ this.props.currentUser.lastName }</h6>
+        <img src={ this.props.currentUser.photo } alt="TouristPhoto"/>
 
         <form onSubmit={this.handleSubmit}>
           <button type="submit">

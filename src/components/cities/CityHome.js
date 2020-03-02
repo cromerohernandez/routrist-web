@@ -83,6 +83,7 @@ class CityHome extends React.Component {
         <h3>CityHome</h3>
         <h5>{ this.props.currentUser.name }</h5>
         <h6>{ this.props.currentUser.country }</h6>
+        <img src={ this.props.currentUser.photo } alt="CityPhoto"/>
 
         <div>
           <button type="button" name="museum" onClick={this.handleCategory}>museums</button>

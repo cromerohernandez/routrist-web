@@ -29,10 +29,10 @@ class TouristForm extends React.Component {
       data: {
         firstName: '',
         lastName: '',
-        userName: '',
+        username: '',
         email: '',
         password: '',
-        photo: ''
+        photo: null
       },
       errors: {
         firstName: {
@@ -62,12 +62,12 @@ class TouristForm extends React.Component {
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target
+    const { name, value, files } = event.target
 
     this.setState({
       data: {
         ...this.state.data,
-        [name]: value
+        [name]: files ? files[0] : value
       }
     })
   }
@@ -94,11 +94,17 @@ class TouristForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    const tourist = {
-      ...this.state.data
-    }
+    const { data } = this.state
 
-    RoutristService.signupTourist(tourist)
+    const touristFormData = new FormData()
+    touristFormData.append('firstName', data.firstName)
+    touristFormData.append('lastName', data.lastName)
+    touristFormData.append('username', data.username)
+    touristFormData.append('email', data.email)
+    touristFormData.append('password', data.password)
+    touristFormData.append('photo', data.photo)
+
+    RoutristService.signupTourist(touristFormData)
       .then(
         () => {
           this.setState({
@@ -237,11 +243,10 @@ class TouristForm extends React.Component {
           </div>
 
           <div>
+            <h6>photo</h6>
             <input
-              type="text"
+              type="file"
               name="photo"
-              placeholder="photo"
-              value={data.photo}
               onChange={this.handleChange}
             />
           </div>

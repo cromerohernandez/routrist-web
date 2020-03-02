@@ -20,7 +20,7 @@ class PlaceForm extends React.Component {
         name: '',
         category: '',
         cityRate: '',
-        photo: ''
+        photo: null
       },
       errors: {
         name: {
@@ -43,12 +43,12 @@ class PlaceForm extends React.Component {
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target
+    const { name, value, files } = event.target
 
     this.setState({
       data: {
         ...this.state.data,
-        [name]: value
+        [name]: files ? files[0] : value
       }
     })
   }
@@ -94,11 +94,15 @@ class PlaceForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    const place = {
-      ...this.state.data
-    }
+    const { data } = this.state
 
-    RoutristService.createPlace(place)
+    const placeFormData = new FormData()
+    placeFormData.append('name', data.name)
+    placeFormData.append('category', data.category)
+    placeFormData.append('cityRate', data.cityRate)
+    placeFormData.append('photo', data.photo)
+
+    RoutristService.createPlace(placeFormData)
       .then(
         (place) => {
           this.setState({
@@ -197,11 +201,10 @@ class PlaceForm extends React.Component {
           </div>
 
           <div>
+            <h6>photo</h6>
             <input
-              type="text"
+              type="file"
               name="photo"
-              placeholder="photo"
-              value={data.photo}
               onChange={this.handleChange}
             />
           </div>

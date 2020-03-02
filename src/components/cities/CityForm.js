@@ -30,7 +30,7 @@ class CityForm extends React.Component {
         country: '',
         email: '',
         password: '',
-        photo: ''
+        photo: null
       },
       errors: {
         name: {
@@ -56,12 +56,12 @@ class CityForm extends React.Component {
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target
+    const { name, value, files } = event.target
 
     this.setState({
       data: {
         ...this.state.data,
-        [name]: value
+        [name]: files ? files[0] : value
       }
     })
   }
@@ -88,11 +88,16 @@ class CityForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    const city = {
-      ...this.state.data
-    }
+    const { data } = this.state
 
-    RoutristService.signupCity(city)
+    const cityFormData = new FormData()
+    cityFormData.append('name', data.name)
+    cityFormData.append('country', data.country)
+    cityFormData.append('email', data.email)
+    cityFormData.append('password', data.password)
+    cityFormData.append('photo', data.photo)
+
+    RoutristService.signupCity(cityFormData)
       .then(
         () => {
           this.setState({
@@ -211,11 +216,10 @@ class CityForm extends React.Component {
           </div>
 
           <div>
+            <h6>photo</h6>
             <input
-              type="text"
+              type="file"
               name="photo"
-              placeholder="photo"
-              value={data.photo}
               onChange={this.handleChange}
             />
           </div>
