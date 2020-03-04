@@ -88,6 +88,10 @@ class CityHome extends React.Component {
           <img src={ this.props.currentUser.photo } alt="CityPhoto"/>
         </div>
 
+        <form onSubmit={this.handleLogout}>
+          <button type="submit">Log out</button>
+        </form>
+
         <div>
           <button type="button" name="museum" onClick={this.handleCategory}>museums</button>
           <button type="button" name="garden" onClick={this.handleCategory}>gardens</button>
@@ -101,6 +105,10 @@ class CityHome extends React.Component {
         </div>
 
         <div>
+            <Link to={'/places/new'}>Add Place</Link>
+          </div>
+
+        <div>
           <h5>Places</h5>
           <div>
             {this.state.places.map((place, i) => (
@@ -110,14 +118,7 @@ class CityHome extends React.Component {
             ))}
           </div>
 
-          <div>
-            <Link to={'/places/new'}>Add Place</Link>
-          </div>
         </div>
-
-        <form onSubmit={this.handleLogout}>
-          <button type="submit">Log out</button>
-        </form>
 
       </div>
     )

@@ -1,15 +1,21 @@
 import React from 'react'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 import RoutristService from '../../services/RoutristService'
+import GoogleMapsService from '../../services/GoogleMapsService'
+
 
 const validators = {
   name: val => val ? true : false,
   category: _ => true,
-  cityRate: _ => true
+  cityRate: _ => true,
+  latitude: val => val ? true : false,
+  longitude: val => val ? true : false
 }
 
 const errorMessages = {
-  name: 'name is required'
+  name: 'name is required',
+  latitude: 'latitude is required',
+  longitude: 'longitude is required',
 }
 
 class PlaceForm extends React.Component {
@@ -20,7 +26,11 @@ class PlaceForm extends React.Component {
         name: '',
         category: '',
         cityRate: '',
-        photo: null
+        schedule: '',
+        latitude: '',
+        longitude: '',
+        description: '',
+        photo: null,
       },
       errors: {
         name: {
@@ -32,6 +42,14 @@ class PlaceForm extends React.Component {
         },
         cityRate: {
           active: true
+        },
+        latitude: {
+          active: true,
+          message: errorMessages.latitude
+        },
+        longitude: {
+          active: true,
+          message: errorMessages.longitude
         }
       },
       touch: {},
@@ -91,6 +109,28 @@ class PlaceForm extends React.Component {
     })
   }
 
+  handleLocation = () => {
+    const place = this.state.data.name
+    const city = this.props.currentUser.name
+    const country = this.props.currentUser.country
+
+    GoogleMapsService.getLocation(place, city, country) 
+      .then(
+        resLocation => {
+          const location = resLocation.cantidades.geometry.location
+
+          this.setState({
+            data: {
+              ...this.state.data,
+              latitude: location.lat,
+              longitude: location.lng
+            }
+          })
+        },
+        error => (console.log(error))
+      )
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
 
@@ -101,15 +141,23 @@ class PlaceForm extends React.Component {
     placeFormData.append('category', data.category)
     placeFormData.append('cityRate', data.cityRate)
     placeFormData.append('photo', data.photo)
+    placeFormData.append('schedule', data.schedule)
+    placeFormData.append('latitude', data.latitude)
+    placeFormData.append('longitude', data.longitude)
+    placeFormData.append('description', data.description)
 
     RoutristService.createPlace(placeFormData)
       .then(
-        (place) => {
+        place => {
           this.setState({
             data: {
               name: '',
               category: '',
               cityRate: '',
+              schedule: '',
+              latitude: '',
+              longitude: '',
+              description: '',
               photo: ''
             },
             errors: {
@@ -122,6 +170,14 @@ class PlaceForm extends React.Component {
               },
               cityRate: {
                 active: true
+              },
+              latitude: {
+                active: true,
+                message: errorMessages.latitude
+              },
+              longitude: {
+                active: true,
+                message: errorMessages.longitude
               }
             },
             touch: {},
@@ -198,6 +254,58 @@ class PlaceForm extends React.Component {
             <button type="button" name="cityRate" value="3" onClick={this.handleClick}>3</button>
             <button type="button" name="cityRate" value="4" onClick={this.handleClick}>4</button>
             <button type="button" name="cityRate" value="5" onClick={this.handleClick}>5</button>
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="schedule"
+              placeholder="schedule"
+              value={data.schedule}
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="latitude"
+              placeholder="latitude"
+              value={data.latitude}
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+            />
+            {touch.latitude && errors.latitude.active && (
+              <div>
+                { this.state.errors.latitude.message }
+              </div>
+            )}
+
+            <input
+              type="text"
+              name="longitude"
+              placeholder="longitude"
+              value={data.longitude}
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+            />
+            {touch.longitude && errors.longitude.active && (
+              <div>
+                { this.state.errors.longitude.message }
+              </div>
+            )}
+
+            <button type="button" disabled={!this.state.data.name} onClick={this.handleLocation}>Get location</button>
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="description"
+              placeholder="description"
+              value={data.description}
+              onChange={this.handleChange}
+            />
           </div>
 
           <div>
