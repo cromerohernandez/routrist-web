@@ -1,10 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import RoutristService from '../../services/RoutristService'
+import PlaceCard from '../places/PlaceCard'
 
 class RouteDetail extends React.Component {
   state= {
-    route: {}
+    route: {
+      city: {}
+    }
   }
 
   componentDidMount() {
@@ -23,7 +26,7 @@ class RouteDetail extends React.Component {
       <div>
         <div>
           <h5>{name}</h5>
-          <h6>city: {city}</h6>
+          <h6>city: {city.name}</h6>
           <h6>Start Date: {startDate}</h6>
           <h6>End Date: {endDate}</h6>
         </div>
@@ -31,7 +34,7 @@ class RouteDetail extends React.Component {
         <div>
           <h5>Places</h5>
           <div>
-            
+
           </div>
         </div>
 
@@ -43,3 +46,8 @@ class RouteDetail extends React.Component {
 
 export default RouteDetail
 
+/*{places.map((place, i) => (
+  <Link to={`/places/${place}`} key={i}>
+    <PlaceCard place={place}/>
+  </Link>
+))}*/

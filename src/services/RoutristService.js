@@ -25,10 +25,17 @@ const cityPlaces = (params) => http.get('/cities/me/places', {
     return QueryString.stringify(params, {arrayFormat: 'repeat'})
   }
 })
+const getCities = () => http.get('/cities')
 
 //tourists
 const signupTourist = (tourist) => http.post('/tourists/new', tourist)
 const touristRoutes = (params) => http.get('/tourists/me/routes', {
+  params,
+  paramsSerializer: (params) => {
+    return QueryString.stringify(params, {arrayFormat: 'repeat'})
+  }
+})
+const getPlaces = (params) => http.get('/places', {
   params,
   paramsSerializer: (params) => {
     return QueryString.stringify(params, {arrayFormat: 'repeat'})
@@ -49,8 +56,10 @@ const logout = () => http.post('/logout')
 export default {
   signupCity,
   cityPlaces,
+  getCities,
   signupTourist,
   touristRoutes,
+  getPlaces,
   createPlace,
   placeDetail,
   routeDetail,
