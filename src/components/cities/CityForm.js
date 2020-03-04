@@ -11,7 +11,7 @@ const validators = {
   country:  val => val ? true : false,
   email: val => val.match(EMAIL_PATTERN),
   password: val => val.length > 8,
-  photo: _ => true
+  shield: _ => true
 }
 
 const errorMessages = {
@@ -30,7 +30,7 @@ class CityForm extends React.Component {
         country: '',
         email: '',
         password: '',
-        photo: null
+        shield: null
       },
       errors: {
         name: {
@@ -95,7 +95,7 @@ class CityForm extends React.Component {
     cityFormData.append('country', data.country)
     cityFormData.append('email', data.email)
     cityFormData.append('password', data.password)
-    cityFormData.append('photo', data.photo)
+    cityFormData.append('shield', data.shield)
 
     RoutristService.signupCity(cityFormData)
       .then(
@@ -216,10 +216,10 @@ class CityForm extends React.Component {
           </div>
 
           <div>
-            <h6>photo</h6>
+            <h6>shield</h6>
             <input
               type="file"
-              name="photo"
+              name="shield"
               onChange={this.handleChange}
             />
           </div>

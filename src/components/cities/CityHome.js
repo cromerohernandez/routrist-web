@@ -85,7 +85,7 @@ class CityHome extends React.Component {
         <div>
           <h5>{ this.props.currentUser.name }</h5>
           <h6>{ this.props.currentUser.country }</h6>
-          <img src={ this.props.currentUser.photo } alt="CityPhoto"/>
+          <img src={ this.props.currentUser.shield } alt="CityShield"/>
         </div>
 
         <form onSubmit={this.handleLogout}>
@@ -93,8 +93,12 @@ class CityHome extends React.Component {
         </form>
 
         <div>
-          <button type="button" name="museum" onClick={this.handleCategory}>museums</button>
+          <button type="button" name="building" onClick={this.handleCategory}>buildings</button>
           <button type="button" name="garden" onClick={this.handleCategory}>gardens</button>
+          <button type="button" name="monument" onClick={this.handleCategory}>monuments</button>
+          <button type="button" name="museum" onClick={this.handleCategory}>museums</button>
+          <button type="button" name="square" onClick={this.handleCategory}>squares</button>
+          <button type="button" name="worship" onClick={this.handleCategory}>worship</button>
         </div>
 
         <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..."/>

@@ -113,10 +113,11 @@ class PlaceForm extends React.Component {
     const place = this.state.data.name
     const city = this.props.currentUser.name
     const country = this.props.currentUser.country
-
+    console.log('aqui1')
     GoogleMapsService.getLocation(place, city, country) 
       .then(
         resLocation => {
+          console.log('aqui')
           const location = resLocation.cantidades.geometry.location
 
           this.setState({
@@ -127,7 +128,11 @@ class PlaceForm extends React.Component {
             }
           })
         },
-        error => (console.log(error))
+        error => {
+          console.log('aqui3')
+
+          console.log(error)
+        }
       )
   }
 
@@ -243,8 +248,12 @@ class PlaceForm extends React.Component {
 
           <div>
             <h5>category</h5>
-            <button type="button" name="category" value="garden" onClick={this.handleClick}>garden</button>
-            <button type="button" name="category" value="museum" onClick={this.handleClick}>museum</button>
+            <button type="button" name="category" value="building" onClick={this.handleClick}>buildings</button>
+            <button type="button" name="category" value="garden" onClick={this.handleClick}>gardens</button>
+            <button type="button" name="category" value="monument" onClick={this.handleClick}>monuments</button>
+            <button type="button" name="category" value="museum" onClick={this.handleClick}>museums</button>
+            <button type="button" name="category" value="square" onClick={this.handleClick}>squares</button>
+            <button type="button" name="category" value="worship" onClick={this.handleClick}>worship</button>
           </div>
 
           <div>
