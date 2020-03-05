@@ -48,6 +48,7 @@ const placeDetail = (placeId) => http.get(`/places/${placeId}`)
 
 //routes
 const routeDetail = (routeId) => http.get(`/routes/${routeId}`)
+const createRoute = (route) => http.post('routes/new', route)
 
 //sessions
 const login = ({ email, password }) => http.post('/login', { email, password })
@@ -63,6 +64,7 @@ export default {
   createPlace,
   placeDetail,
   routeDetail,
+  createRoute,
   login,
   logout
 }

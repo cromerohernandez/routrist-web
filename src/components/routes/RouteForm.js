@@ -1,15 +1,20 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 import RoutristService from '../../services/RoutristService'
 import filtersHelper from '../../helpers/filtersHelper'
 import PlaceCard from '../places/PlaceCard'
+import CurrentJourney from '../journeys/CurrentJourney'
 
 class RouteForm extends React.Component {
   state = {
-    journeys: {},
-    currentDay: '',
+    data: {
+      routeName: '',
+    },
+    journeys: [],
+    currentJourney: 0,
     currentPlace: {},
+    currentVisitingTime: '',
     cities: [],
     filter: {
       city: '',
@@ -18,6 +23,7 @@ class RouteForm extends React.Component {
       sortDirection: 'desc',
       name: ''
     },
+    startDate: null,
     places: []
   }
   
@@ -53,6 +59,25 @@ class RouteForm extends React.Component {
       .then(places => {
         this.setState({ places })
       })
+  }
+
+  handleChange = (event) => {
+    const { name, value } = event.target
+
+    this.setState({
+      data: {
+        ...this.state.data,
+        [name]: value
+      }
+    })
+  }
+
+  setStartDate = (event) => {
+    const { value } = event.target
+
+    this.setState({
+      startDate: value
+    })
   }
 
   setCity = (event) => {
@@ -105,14 +130,97 @@ class RouteForm extends React.Component {
       currentPlace: place
     })
   }
+  
+  handleSetCurrentJourney = (event) => {
+    this.setState({
+      currentJourney: Number(event.target.value)
+    })
+  }
 
-  handleAddCurrentPlace = (place) => {
-    this.
+  handleAddJourney = () => {
+    const previousJourney = this.state.journeys.length
+
+    if (this.state.journeys.length === 0) {
+      const startDate = new Date(this.state.startDate)
+
+      this.setState({
+        journeys: [
+          ...this.state.journeys,
+          { 
+            startDate: startDate,
+            steps: []
+          }
+        ],
+        currentJourney: previousJourney + 1
+      })
+    } else {
+      const previousDate = this.state.journeys[this.state.journeys.length - 1].startDate
+      const startDate = new Date(previousDate)
+      new Date(startDate.setDate(startDate.getDate() + 1))
+
+      this.setState({
+        journeys: [
+          ...this.state.journeys,
+          { 
+            startDate: startDate,
+            steps: []
+          }
+        ],
+        currentJourney: previousJourney + 1
+      })
+    }
+
+  }
+
+  handleSetCurrentVisitingTime = (event) => {
+    this.setState({
+      currentVisitingTime: event.target.value
+    })
+  }
+
+  handleAddCurrentPlace = (event) => {
+    const { journeys, currentJourney, currentVisitingTime } = this.state
+    const place = this.state.currentPlace
+    const step = {
+      place: place,
+      visitingTime: currentVisitingTime
+    }
+    const newJourneys = [...journeys]
+    newJourneys[currentJourney - 1].steps.push(step)
+
+    this.setState({
+      journeys: newJourneys
+    })
+  }
+
+  handleCreateRoute = () => {
+    const routeName = this.state.data.routeName
+    const city = this.state.filter.city
+    const routeJourneys = [...this.state.journeys]
+
+    for (let i = 0; i < routeJourneys.length; i++) {
+      for (let j = 0; j < routeJourneys[i].length; j++) {
+        routeJourneys[i].steps[j].map(place => place.id)
+      }
+    }
+
+    const route = {
+      name: routeName,
+      city: city,
+      journeys: routeJourneys
+    }
+
+    RoutristService.createRoute(route)
+      .then(
+        route => {
+          return <Redirect to='/'/>
+        },
+        error => console.log(error)
+      )
   }
 
   render() {
-    const { route, currentDay, currentPlace, cities, filter, places } = this.state
-
+    const { data, journeys, currentJourney, currentPlace, currentVisitingTime, cities, filter, startDate, places } = this.state
 
     return (
       <div>
@@ -121,34 +229,10 @@ class RouteForm extends React.Component {
         </div>
 
         <div>
-          {currentPlace &&
-            <h2>{currentPlace.name}</h2>
-          }
-
-          <button type="button" value={currentPlace.id} onClick={this.handleAddCurrentPlace}>Add Place</button>
-        </div>
-
-        <div>
-          <div>
-            <button type="button" name="building" onClick={this.handleCategory}>buildings</button>
-            <button type="button" name="garden" onClick={this.handleCategory}>gardens</button>
-            <button type="button" name="monument" onClick={this.handleCategory}>monuments</button>
-            <button type="button" name="museum" onClick={this.handleCategory}>museums</button>
-            <button type="button" name="square" onClick={this.handleCategory}>squares</button>
-            <button type="button" name="worship" onClick={this.handleCategory}>worship</button>
-          </div>
-
-          <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..."/>
-
-          <div>
-            <button type="button" name="cityRate" onClick={this.handleSort}>City Rate</button>
-            <button type="button" name="touristRate" onClick={this.handleSort}>Tourist Rate</button>
-          </div>
-        </div>
-
-        <div>
-          {!filter.city && 
+          {(!filter.city || !startDate) &&
             <div>
+              <h6>Select the start date</h6>
+              <input type="date" name="date" onChange={this.setStartDate}/>
               <h6>Select a city</h6>
               {cities.map((city, i) => (
                 <button type="button" name={city.name} value={city.id} onClick={this.setCity} key={i}>{city.name}</button>
@@ -158,13 +242,64 @@ class RouteForm extends React.Component {
         </div>
 
         <div>
-          {places && 
-            places.map((place, i) => (
-              <PlaceCard place={place} onClick={() => this.setCurrentPlace(place)}/>
-            ))
+          {places.length > 0 && startDate &&
+            <div>
+              <div>
+                <h6>Start date: {startDate}</h6>
+                <div>
+                  <input type="text" value={data.routeName} name="routeName" onChange={this.handleChange} placeholder="route name"/>
+                </div>
+                <button type="button" onClick={this.handleAddJourney}>Add Journey</button>
+                <div>
+                  {journeys.map((journey, i) => (
+                    <button type="button" value={i + 1} onClick={this.handleSetCurrentJourney} key={i}>Day {i+1}</button>
+                  ))}
+                </div>
+
+                <div>
+                  {currentJourney > 0 &&
+                    <CurrentJourney journey={ journeys[currentJourney - 1] } />
+                  }  
+                </div>
+
+                <button type="button" onClick={this.handleCreateRoute}>Create Route</button>
+              </div>
+
+              <div>
+                {currentPlace &&
+                  <div>
+                    <h2>{currentPlace.name}</h2>
+                    <input name={currentVisitingTime} value={currentVisitingTime} onChange={this.handleSetCurrentVisitingTime} placeholder="visiting time (min)"/>
+                    <button type="button" disabled={!currentVisitingTime} onClick={this.handleAddCurrentPlace}>Add Place</button>
+                  </div>
+                }
+              </div>
+
+              <div>
+                <div>
+                  <button type="button" name="building" onClick={this.handleCategory}>buildings</button>
+                  <button type="button" name="garden" onClick={this.handleCategory}>gardens</button>
+                  <button type="button" name="monument" onClick={this.handleCategory}>monuments</button>
+                  <button type="button" name="museum" onClick={this.handleCategory}>museums</button>
+                  <button type="button" name="square" onClick={this.handleCategory}>squares</button>
+                  <button type="button" name="worship" onClick={this.handleCategory}>worship</button>
+                </div>
+
+                <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..."/>
+
+                <div>
+                  <button type="button" name="cityRate" onClick={this.handleSort}>City Rate</button>
+                  <button type="button" name="touristRate" onClick={this.handleSort}>Tourist Rate</button>
+                </div>
+              </div>
+              <div>
+                {places.map((place, i) => (
+                  <PlaceCard place={place} onClick={() => this.setCurrentPlace(place)} key={i}/>
+                ))}
+              </div>
+            </div>
           }
         </div>
-
       </div>
     )
   }
