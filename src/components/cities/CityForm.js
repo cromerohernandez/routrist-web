@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import RoutristService from '../../services/RoutristService'
 import Validation from '../auth/Validation'
+import '../../stylesheets/Form.css'
+import '../../stylesheets/Signup.css'
 
 // eslint-disable-next-line
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -148,89 +150,88 @@ class CityForm extends React.Component {
     }
 
     return(
-      <div className="CityForm">
-        <h3>Sign up as City</h3>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <input
-              type="text"
-              name="name"
-              placeholder="name"
-              value={data.name}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-            />
-            {touch.name && errors.name.active && (
-              <div>
-                { this.state.errors.name.message }
-              </div>
-            )}
-          </div>
+      <div id='signup-container'>
+        <h3 id='form-title'>Sign up as City</h3>
+
+        <form onSubmit={this.handleSubmit} id="form-container">
+          <input
+            type="text"
+            name="name"
+            placeholder="name"
+            value={data.name}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            id="form-input"
+          />
+          {touch.name && errors.name.active && (
+            <div id="form-error">
+              { this.state.errors.name.message }
+            </div>
+          )}
+
+          <input
+            type="text"
+            name="country"
+            placeholder="country"
+            value={data.country}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            id="form-input"
+          />
+          {touch.country && errors.country.active && (
+            <div id="form-error">
+              { this.state.errors.country.message }
+            </div>
+          )}
+
+          <input
+            type="text"
+            name="email"
+            placeholder="email"
+            value={data.email}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            id="form-input"
+          />
+          {touch.email && errors.email.active && (
+            <div id="form-error">
+              { this.state.errors.email.message }
+            </div>
+          )}
+
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            value={data.password}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            id="form-input"
+          />
+          {touch.password && errors.password.active && (
+            <div id="form-error">
+              { this.state.errors.password.message }
+            </div>
+          )}
 
           <div>
-            <input
-              type="text"
-              name="country"
-              placeholder="country"
-              value={data.country}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-            />
-            {touch.country && errors.country.active && (
-              <div>
-                { this.state.errors.country.message }
-              </div>
-            )}
-          </div>
-
-          <div>
-            <input
-              type="text"
-              name="email"
-              placeholder="email"
-              value={data.email}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-            />
-            {touch.email && errors.email.active && (
-              <div>
-                { this.state.errors.email.message }
-              </div>
-            )}
-          </div>
-
-          <div>
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              value={data.password}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-            />
-            {touch.password && errors.password.active && (
-              <div>
-                { this.state.errors.password.message }
-              </div>
-            )}
-          </div>
-
-          <div>
-            <h6>shield</h6>
             <input
               type="file"
               name="shield"
               onChange={this.handleChange}
+              id="form-input"
+              placeholder="shield"
             />
           </div>
 
-          <button disabled={anyError} type="submit">
+          <button disabled={anyError} type="submit" id="form-submitButton" className="btn btn-outline-primary" aria-disabled="true">
             Sign up
           </button>
 
         </form>
 
-        <Link to="/">back</Link>
+        <Link to="/" id='form-back'>←</Link>
+
       </div>
     )
   }

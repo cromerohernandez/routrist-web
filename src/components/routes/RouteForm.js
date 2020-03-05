@@ -5,6 +5,8 @@ import RoutristService from '../../services/RoutristService'
 import filtersHelper from '../../helpers/filtersHelper'
 import PlaceCard from '../places/PlaceCard'
 import CurrentJourney from '../journeys/CurrentJourney'
+import TouristProfile from '../tourists/TouristProfile'
+import '../../stylesheets/RouteForm.css'
 
 class RouteForm extends React.Component {
   state = {
@@ -18,7 +20,7 @@ class RouteForm extends React.Component {
     cities: [],
     filter: {
       city: '',
-      category: ['museum', 'garden'],
+      category: ['museum', 'garden', 'building', 'worship', 'monument', 'square'],
       sort: 'cityRate',
       sortDirection: 'desc',
       name: ''
@@ -189,7 +191,7 @@ class RouteForm extends React.Component {
     newJourneys[currentJourney - 1].steps.push(step)
 
     this.setState({
-      journeys: newJourneys
+      journeys: newJourneys,
     })
   }
 
@@ -224,35 +226,46 @@ class RouteForm extends React.Component {
 
     return (
       <div>
+        <TouristProfile/>
+
+
         <div>
-          <h6>RouteForm</h6>
+          <h6 id='routeForm-sectionTitle'>RouteForm</h6>
         </div>
 
         <div>
           {(!filter.city || !startDate) &&
             <div>
+              <div  id='routeForm-sectionPrev'>
               <h6>Select the start date</h6>
-              <input type="date" name="date" onChange={this.setStartDate}/>
-              <h6>Select a city</h6>
-              {cities.map((city, i) => (
-                <button type="button" name={city.name} value={city.id} onClick={this.setCity} key={i}>{city.name}</button>
-              ))}
+              <input type="date" name="date" onChange={this.setStartDate} id='routeForm-input'/>
+            </div>
+              <div  id='routeForm-sectionPrev'>
+                <h6>Select a city</h6>
+                {cities.map((city, i) => (
+                  <button type="button" name={city.name} value={city.id} onClick={this.setCity} key={i} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">{city.name}</button>
+                ))}
+              </div>
             </div>
           }
         </div>
 
         <div>
           {places.length > 0 && startDate &&
-            <div>
+            <div id='routeForm-section'>
               <div>
-                <h6>Start date: {startDate}</h6>
-                <div>
-                  <input type="text" value={data.routeName} name="routeName" onChange={this.handleChange} placeholder="route name"/>
+                
+                <div id='routeForm-dataRoute'>
+                  <input type="text" value={data.routeName} name="routeName" onChange={this.handleChange} placeholder="route name" id='routeForm-input-data'/>
+                  <h6 id='routeForm-dataDate'>Start date: {startDate}</h6>
+                  <button type="button" onClick={this.handleCreateRoute} id='routeForm-button-data' className="btn btn-outline-primary" aria-disabled="true">Create Route</button>
+
                 </div>
-                <button type="button" onClick={this.handleAddJourney}>Add Journey</button>
+                <button type="button" onClick={this.handleAddJourney} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">Add Journey</button>
+
                 <div>
                   {journeys.map((journey, i) => (
-                    <button type="button" value={i + 1} onClick={this.handleSetCurrentJourney} key={i}>Day {i+1}</button>
+                    <button type="button" value={i + 1} onClick={this.handleSetCurrentJourney} key={i} id='routeForm-buttonDay' className="btn btn-outline-primary" aria-disabled="true">Day {i+1}</button>
                   ))}
                 </div>
 
@@ -262,37 +275,44 @@ class RouteForm extends React.Component {
                   }  
                 </div>
 
-                <button type="button" onClick={this.handleCreateRoute}>Create Route</button>
               </div>
 
-              <div>
+              <hr/>
+
+              <div id='routeForm-section'>
                 {currentPlace &&
                   <div>
-                    <h2>{currentPlace.name}</h2>
-                    <input name={currentVisitingTime} value={currentVisitingTime} onChange={this.handleSetCurrentVisitingTime} placeholder="visiting time (min)"/>
-                    <button type="button" disabled={!currentVisitingTime} onClick={this.handleAddCurrentPlace}>Add Place</button>
+                    <h4>{currentPlace.name}</h4>
+                    <h6>{currentPlace.schedule}</h6>
+                    <input name={currentVisitingTime} value={currentVisitingTime} onChange={this.handleSetCurrentVisitingTime} placeholder="visiting time (min)" id='routeForm-input'/>
+                    <button type="button" disabled={!currentVisitingTime} onClick={this.handleAddCurrentPlace} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">Add Place</button>
                   </div>
                 }
               </div>
 
-              <div>
+                <hr/>
+
+              <div id='routeForm-section'>
                 <div>
-                  <button type="button" name="building" onClick={this.handleCategory}>buildings</button>
-                  <button type="button" name="garden" onClick={this.handleCategory}>gardens</button>
-                  <button type="button" name="monument" onClick={this.handleCategory}>monuments</button>
-                  <button type="button" name="museum" onClick={this.handleCategory}>museums</button>
-                  <button type="button" name="square" onClick={this.handleCategory}>squares</button>
-                  <button type="button" name="worship" onClick={this.handleCategory}>worship</button>
+                  <button type="button" name="building" onClick={this.handleCategory} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">buildings</button>
+                  <button type="button" name="garden" onClick={this.handleCategory} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">gardens</button>
+                  <button type="button" name="monument" onClick={this.handleCategory} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">monuments</button>
+                  <button type="button" name="museum" onClick={this.handleCategory} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">museums</button>
+                  <button type="button" name="square" onClick={this.handleCategory} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">squares</button>
+                  <button type="button" name="worship" onClick={this.handleCategory} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">worship</button>
                 </div>
 
-                <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..."/>
+                <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..." id='routeForm-input'/>
 
                 <div>
-                  <button type="button" name="cityRate" onClick={this.handleSort}>City Rate</button>
-                  <button type="button" name="touristRate" onClick={this.handleSort}>Tourist Rate</button>
+                  <button type="button" name="cityRate" onClick={this.handleSort} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">City Rate</button>
+                  <button type="button" name="touristRate" onClick={this.handleSort} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">Tourist Rate</button>
                 </div>
+
+                <hr/>
+
               </div>
-              <div>
+              <div id='routeForm-places'>
                 {places.map((place, i) => (
                   <PlaceCard place={place} onClick={() => this.setCurrentPlace(place)} key={i}/>
                 ))}

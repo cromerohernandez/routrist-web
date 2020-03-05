@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import RoutristService from '../../services/RoutristService'
 import Validation from '../auth/Validation'
+import '../../stylesheets/Form.css'
+import '../../stylesheets/Signup.css'
 
 // eslint-disable-next-line
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -159,105 +161,100 @@ class TouristForm extends React.Component {
     }
 
     return(
-      <div className="TouristForm">
-        <h3>Sign up as Tourist</h3>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <input
-              type="text"
-              name="firstName"
-              placeholder="first name"
-              value={data.firstName}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-            />
-            {touch.firstName && errors.firstName.active && (
-              <div>
-                { this.state.errors.firstName.message }
-              </div>
-            )}
-          </div>
+      <div  id='signup-container'>
+        <h3 id='form-title'>Sign up as Tourist</h3>
 
-          <div>
-            <input
-              type="text"
-              name="lastName"
-              placeholder="last name"
-              value={data.lastName}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-            />
-            {touch.lastName && errors.lastName.active && (
-              <div>
-                { this.state.errors.lastName.message }
-              </div>
-            )}
-          </div>
+        <form onSubmit={this.handleSubmit}  id="form-container">
+          <input
+            type="text"
+            name="firstName"
+            placeholder="first name"
+            value={data.firstName}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            id="form-input"
+          />
+          {touch.firstName && errors.firstName.active && (
+            <div id="form-error">
+              { this.state.errors.firstName.message }
+            </div>
+          )}
 
-          <div>
-            <input
-              type="text"
-              name="username"
-              placeholder="username"
-              value={data.username}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-            />
-            {touch.username && errors.username.active && (
-              <div>
-                { this.state.errors.username.message }
-              </div>
-            )}
-          </div>
+          <input
+            type="text"
+            name="lastName"
+            placeholder="last name"
+            value={data.lastName}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            id="form-input"
+          />
+          {touch.lastName && errors.lastName.active && (
+            <div id="form-error">
+              { this.state.errors.lastName.message }
+            </div>
+          )}
 
-          <div>
-            <input
-              type="text"
-              name="email"
-              placeholder="email"
-              value={data.email}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-            />
-            {touch.email && errors.email.active && (
-              <div>
-                { this.state.errors.email.message }
-              </div>
-            )}
-          </div>
+          <input
+            type="text"
+            name="username"
+            placeholder="username"
+            value={data.username}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            id="form-input"
+          />
+          {touch.username && errors.username.active && (
+            <div id="form-error">
+              { this.state.errors.username.message }
+            </div>
+          )}
 
-          <div>
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              value={data.password}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-            />
-            {touch.password && errors.password.active && (
-              <div>
-                { this.state.errors.password.message }
-              </div>
-            )}
-          </div>
+          <input
+            type="text"
+            name="email"
+            placeholder="email"
+            value={data.email}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            id="form-input"
+          />
+          {touch.email && errors.email.active && (
+            <div id="form-error">
+              { this.state.errors.email.message }
+            </div>
+          )}
 
-          <div>
-            <h6>photo</h6>
-            <input
-              type="file"
-              name="photo"
-              onChange={this.handleChange}
-            />
-          </div>
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            value={data.password}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            id="form-input"
+          />
+          {touch.password && errors.password.active && (
+            <div id="form-error">
+              { this.state.errors.password.message }
+            </div>
+          )}
 
-          <button disabled={anyError} type="submit">
-            Sign up
-          </button>
+          <input
+            type="file"
+            name="photo"
+            onChange={this.handleChange}
+            id="form-input"
+          />
+
+
+        <button disabled={anyError} type="submit" id="form-submitButton" className="btn btn-outline-primary" aria-disabled="true">
+          Sign up
+        </button>
 
         </form>
 
-        <Link to="/">back</Link>
+        <Link to="/" id='form-back'>←</Link>
 
       </div>
     )

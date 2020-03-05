@@ -3,6 +3,10 @@ import { Link, Redirect } from 'react-router-dom'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 import RoutristService from '../../services/RoutristService'
 import RouteCard from '../routes/RouteCard'
+import '../../stylesheets/Home.css'
+import '../../stylesheets/filter.css'
+import '../../stylesheets/RouteCard.css'
+import TouristProfile from './TouristProfile'
 
 class TouristHome extends React.Component {
   state = {
@@ -40,47 +44,29 @@ class TouristHome extends React.Component {
     })
   }
 
-  handleLogout = () => {
-    this.props.logout()
-      .then(() => {
-        return <Redirect to='/'/>
-      })
-      .catch()
-  }
-
   render() {
     return(
-      <div>
-        <h3>TouristHome</h3>
+      <div id='home-conteiner'>
+        <TouristProfile/>
 
-        <div>
-          <h5>{ this.props.currentUser.username }</h5>
-          <h6>{ this.props.currentUser.firstName }</h6>
-          <h6>{ this.props.currentUser.lastName }</h6>
-          <img src={ this.props.currentUser.photo } alt="TouristPhoto"/>
-        </div>
+        <div id ='home-section'>
+          <h5 id='home-title'>routes</h5>
 
-        <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..."/>
+          <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..." id='filter-inputSearch'/>
 
-        <div>
-            <Link to={'/routes/new'}>Add Route</Link>
-        </div>
+          <div>
+              <Link to={'/routes/new'} id ='profile-add'>+</Link>
+          </div>
 
-        <div>
-          <h5>Routes</h5>
           <div>
             {this.state.routes.map((route, i) => (
-              <Link to={`/routes/${route.id}`} key={i}>
+              <Link to={`/routes/${route.id}`} key={i} id='routeCard-container'>
                 <RouteCard route={route}/>
               </Link>
             ))}
           </div>
 
         </div>
- 
-        <form onSubmit={this.handleLogout}>
-          <button type="submit">Log out</button>
-        </form>
 
       </div>
     )

@@ -1,0 +1,9 @@
+#currentJourney-date {
+  font-size: 1.5vh
+}
+
+#currentJourney-steps {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}

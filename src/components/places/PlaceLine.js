@@ -1,5 +1,7 @@
 import React from 'react'
+import { WithAuthConsumer } from '../../contexts/AuthContext'
 import RoutristService from '../../services/RoutristService'
+import '../../stylesheets/PlaceLine.css'
 
 class PlaceLine extends React.Component {
   state = {
@@ -9,6 +11,7 @@ class PlaceLine extends React.Component {
   componentDidMount() {
      RoutristService.placeDetail(this.props.placeId)
       .then(place => {
+        console.log(place)
         this.setState({ place })
       })
   }
@@ -17,15 +20,13 @@ class PlaceLine extends React.Component {
     const { name, category, cityRate, touristsRate, photo } = this.state.place
 
     return (
-      <div>
-        <h5>{name}</h5>
-        <h6>{category}</h6>
-        <h6>{cityRate}</h6>
-        <h6>{touristsRate}</h6>
-        <img src={photo}/>
+      <div id='placeLine-container'>
+        <h5 id='placeLine-name'>{name}</h5>
+        <h6 id='placeLine-time'>{this.props.visitingTime} min</h6>
+        <img src={photo} id='placeLine-photo'/>
       </div>
     )
   }
 }
 
-export default PlaceLine
+export default WithAuthConsumer(PlaceLine)

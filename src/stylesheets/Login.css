@@ -1,0 +1,27 @@
+#login-container {
+  height: 100vh;
+  width: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+#login-logo {
+  width: 40vh;
+  height: auto;
+  margin-bottom: 3vh;
+}
+
+#login-link {
+  color: #be8eae;
+  font-weight: 600;
+  text-decoration: none
+}
+
+#login-signUp {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #6a7077;
+  margin-top: 2rem;
+}

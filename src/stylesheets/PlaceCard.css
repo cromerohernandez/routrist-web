@@ -1,0 +1,35 @@
+#placeCard-container{
+  height: 15vh;
+  width: 60vh;
+  border: 1px #be8eae solid;
+  border-radius: 2vh;
+  padding: 1.5vh;
+  margin: 1vh 0;
+  text-decoration: none;
+  color: #43484d;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#placeCard-data {
+  display: flex;
+  flex-direction: column;
+  padding: 1vh
+}
+
+#placeCard-name{
+  color: #be8eae;
+  font-size: 2vh;
+  font-weight: bold;
+}
+
+#placeCard-category{
+  color: #43484d;
+  font-size: 1.5vh;
+}
+
+#placeCard-photo{
+  height: 12vh;
+  width: auto
+}

@@ -1,0 +1,29 @@
+#validation-container {
+  height: 100vh;
+  width: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: #43484d
+}
+
+h5 {
+
+}
+
+h6 {
+
+}
+
+#validation-link {
+  color: #be8eae;
+  font-weight: 600;
+  text-decoration: none
+}
+
+#validation-icon {
+  width: 7vh;
+  height: auto;
+  margin: 0 16.5vh 3.5vh;
+}

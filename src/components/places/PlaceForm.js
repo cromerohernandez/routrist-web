@@ -2,7 +2,8 @@ import React from 'react'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 import RoutristService from '../../services/RoutristService'
 import GoogleMapsService from '../../services/GoogleMapsService'
-
+import '../../stylesheets/Form.css'
+import '../../stylesheets/Signup.css'
 
 const validators = {
   name: val => val ? true : false,
@@ -227,10 +228,9 @@ class PlaceForm extends React.Component {
     const anyError = Object.values(errors).some(x => x.active)
 
     return(
-      <div>
-        <h3>Add a Place</h3>
+      <div id='addPlace-container'>
+        <h3  id='form-title'>Add a Place</h3>
         <form onSubmit={this.handleSubmit}>
-          <div>
             <input
               type="text"
               name="name"
@@ -238,44 +238,53 @@ class PlaceForm extends React.Component {
               value={data.name}
               onBlur={this.handleBlur}
               onChange={this.handleChange}
+              id="form-input"
             />
             {touch.name && errors.name.active && (
-              <div>
+              <div id="form-error">
                 { this.state.errors.name.message }
               </div>
             )}
+
+          <div>
+            <div id='form-categoryTitleConteiner'>
+              <h5>category</h5>
+            </div>
+          <div id='addPlace-section'>
+            <button type="button" name="category" value="building" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">buildings</button>
+            <button type="button" name="category" value="garden" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">gardens</button>
+            <button type="button" name="category" value="monument" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">monuments</button>
+            <button type="button" name="category" value="museum" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">museums</button>
+            <button type="button" name="category" value="square" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">squares</button>
+            <button type="button" name="category" value="worship" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">worship</button>
+          </div>
           </div>
 
           <div>
-            <h5>category</h5>
-            <button type="button" name="category" value="building" onClick={this.handleClick}>buildings</button>
-            <button type="button" name="category" value="garden" onClick={this.handleClick}>gardens</button>
-            <button type="button" name="category" value="monument" onClick={this.handleClick}>monuments</button>
-            <button type="button" name="category" value="museum" onClick={this.handleClick}>museums</button>
-            <button type="button" name="category" value="square" onClick={this.handleClick}>squares</button>
-            <button type="button" name="category" value="worship" onClick={this.handleClick}>worship</button>
+            <div id='form-categoryTitleConteiner'>
+              <h5>city's rate</h5>
+            </div>
+            <div id='addPlace-section'>
+              <button type="button" name="cityRate" value="1" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">1</button>
+              <button type="button" name="cityRate" value="2" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">2</button>
+              <button type="button" name="cityRate" value="3" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">3</button>
+              <button type="button" name="cityRate" value="4" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">4</button>
+              <button type="button" name="cityRate" value="5" onClick={this.handleClick} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">5</button>
+            </div>
           </div>
 
-          <div>
-            <h5>city's rate</h5>
-            <button type="button" name="cityRate" value="1" onClick={this.handleClick}>1</button>
-            <button type="button" name="cityRate" value="2" onClick={this.handleClick}>2</button>
-            <button type="button" name="cityRate" value="3" onClick={this.handleClick}>3</button>
-            <button type="button" name="cityRate" value="4" onClick={this.handleClick}>4</button>
-            <button type="button" name="cityRate" value="5" onClick={this.handleClick}>5</button>
-          </div>
-
-          <div>
+          <div id='addPlace-section'>
             <input
               type="text"
               name="schedule"
               placeholder="schedule"
               value={data.schedule}
               onChange={this.handleChange}
+              id="form-input"
             />
           </div>
 
-          <div>
+          <div id='addPlace-section'>
             <input
               type="text"
               name="latitude"
@@ -283,9 +292,10 @@ class PlaceForm extends React.Component {
               value={data.latitude}
               onBlur={this.handleBlur}
               onChange={this.handleChange}
+              id="form-input"
             />
             {touch.latitude && errors.latitude.active && (
-              <div>
+              <div id="form-error">
                 { this.state.errors.latitude.message }
               </div>
             )}
@@ -297,9 +307,10 @@ class PlaceForm extends React.Component {
               value={data.longitude}
               onBlur={this.handleBlur}
               onChange={this.handleChange}
+              id="form-input"
             />
             {touch.longitude && errors.longitude.active && (
-              <div>
+              <div id="form-error">
                 { this.state.errors.longitude.message }
               </div>
             )}
@@ -313,30 +324,31 @@ class PlaceForm extends React.Component {
               placeholder="description"
               value={data.description}
               onChange={this.handleChange}
+              id="form-input-description"
             />
           </div>
 
           <div>
-            <h6>photo</h6>
             <input
               type="file"
               name="photo"
               onChange={this.handleChange}
+              id="form-input"
             />
           </div>
 
-          <button disabled={anyError} type="submit">
+          <button disabled={anyError} type="submit" id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">
             Add
           </button>
 
-          <button type="button" onClick={this.handleCancel}>
+          <button type="button" onClick={this.handleCancel} id="form-submitButtonPlace" className="btn btn-outline-primary" aria-disabled="true">
             Cancel
           </button>
 
         </form>
 
         {success.active && (
-          <h6>{success.place} has been created</h6>
+          <h6 id="form-success">{success.place} has been created</h6>
         )}
         
       </div>

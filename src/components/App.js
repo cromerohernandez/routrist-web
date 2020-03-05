@@ -1,6 +1,7 @@
 import React from 'react'
 import '../stylesheets/App.css'
 import { Switch, Route, Redirect } from 'react-router-dom'
+import { WithAuthConsumer } from '../contexts/AuthContext'
 //import AuthRoute from '../components/auth/AuthenticatedRoute' ////////////USAR!!!!
 import Home from './misc/Home'
 import Signup from './auth/Signup'
@@ -9,9 +10,10 @@ import PlaceDetail from '../components/places/PlaceDetail'
 import RouteForm from '../components/routes/RouteForm'
 import RouteDetail from '../components/routes/RouteDetail'
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
+    <div className="App" id="app-container">
+
       <Switch>
         <Route exact path="/" component={ Home }/>
         <Route exact path="/signup" component={ Signup }/>
@@ -28,4 +30,4 @@ function App() {
   )
 }
 
-export default App
+export default WithAuthConsumer(App)
