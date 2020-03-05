@@ -304,7 +304,6 @@ class PlaceForm extends React.Component {
               </div>
             )}
 
-            <button type="button" disabled={!this.state.data.name} onClick={this.handleLocation}>Get location</button>
           </div>
 
           <div>
@@ -346,3 +345,6 @@ class PlaceForm extends React.Component {
 }
 
 export default WithAuthConsumer(PlaceForm)
+
+
+//<button type="button" disabled={!this.state.data.name} onClick={this.handleLocation}>Get location</button>

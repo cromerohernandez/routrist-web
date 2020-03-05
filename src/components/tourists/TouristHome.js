@@ -63,7 +63,7 @@ class TouristHome extends React.Component {
         <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..."/>
 
         <div>
-          <button type="button" onClick={ () => {return <Redirect to='/routes/new'/>} }>Add route</button>
+            <Link to={'/routes/new'}>Add Route</Link>
         </div>
 
         <div>
@@ -76,9 +76,6 @@ class TouristHome extends React.Component {
             ))}
           </div>
 
-          <div>
-            <Link to={'/routes/new'}>Add Route</Link>
-          </div>
         </div>
  
         <form onSubmit={this.handleLogout}>

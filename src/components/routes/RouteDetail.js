@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import RoutristService from '../../services/RoutristService'
-import PlaceCard from '../places/PlaceCard'
+import JourneyCard from '../journeys/JourneyCard'
 
 class RouteDetail extends React.Component {
   state= {
     route: {
-      city: {}
+      city: {},
+      journeys: []
     }
   }
 
@@ -20,21 +21,21 @@ class RouteDetail extends React.Component {
   }
 
   render() {
-    const { name, city, startDate, endDate, places } = this.state.route
+    const { name, city, journeys } = this.state.route
 
     return (
       <div>
         <div>
           <h5>{name}</h5>
           <h6>city: {city.name}</h6>
-          <h6>Start Date: {startDate}</h6>
-          <h6>End Date: {endDate}</h6>
-        </div>
+       </div>
 
         <div>
-          <h5>Places</h5>
+          <h5>Journeys</h5>
           <div>
-
+            {journeys.map((journey, i) => (
+              <JourneyCard journey={journey} key={i}/>
+            ))}
           </div>
         </div>
 
@@ -46,8 +47,3 @@ class RouteDetail extends React.Component {
 
 export default RouteDetail
 
-/*{places.map((place, i) => (
-  <Link to={`/places/${place}`} key={i}>
-    <PlaceCard place={place}/>
-  </Link>
-))}*/

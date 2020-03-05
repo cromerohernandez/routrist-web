@@ -6,7 +6,7 @@ const RouteCard = ({ route }) => {
   return (
     <div>
       <h5>{name}</h5>
-      <h6>{city}</h6>
+      <h6>{city.name}</h6>
     </div>
   )
 }

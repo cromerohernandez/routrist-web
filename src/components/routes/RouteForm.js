@@ -7,9 +7,7 @@ import PlaceCard from '../places/PlaceCard'
 
 class RouteForm extends React.Component {
   state = {
-    route: {
-
-    },
+    journeys: {},
     currentDay: '',
     currentPlace: {},
     cities: [],
@@ -108,6 +106,10 @@ class RouteForm extends React.Component {
     })
   }
 
+  handleAddCurrentPlace = (place) => {
+    this.
+  }
+
   render() {
     const { route, currentDay, currentPlace, cities, filter, places } = this.state
 
@@ -119,21 +121,44 @@ class RouteForm extends React.Component {
         </div>
 
         <div>
-          {!filter.city && 
-              cities.map((city, i) => (
-                <button type="button" name={city.name} value={city.id} onClick={this.setCity} key={i}>{city.name}</button>
-              ))
-          }
-        </div>
-
-        <div>
           {currentPlace &&
             <h2>{currentPlace.name}</h2>
           }
+
+          <button type="button" value={currentPlace.id} onClick={this.handleAddCurrentPlace}>Add Place</button>
         </div>
 
         <div>
-          {places &&
+          <div>
+            <button type="button" name="building" onClick={this.handleCategory}>buildings</button>
+            <button type="button" name="garden" onClick={this.handleCategory}>gardens</button>
+            <button type="button" name="monument" onClick={this.handleCategory}>monuments</button>
+            <button type="button" name="museum" onClick={this.handleCategory}>museums</button>
+            <button type="button" name="square" onClick={this.handleCategory}>squares</button>
+            <button type="button" name="worship" onClick={this.handleCategory}>worship</button>
+          </div>
+
+          <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..."/>
+
+          <div>
+            <button type="button" name="cityRate" onClick={this.handleSort}>City Rate</button>
+            <button type="button" name="touristRate" onClick={this.handleSort}>Tourist Rate</button>
+          </div>
+        </div>
+
+        <div>
+          {!filter.city && 
+            <div>
+              <h6>Select a city</h6>
+              {cities.map((city, i) => (
+                <button type="button" name={city.name} value={city.id} onClick={this.setCity} key={i}>{city.name}</button>
+              ))}
+            </div>
+          }
+        </div>
+
+        <div>
+          {places && 
             places.map((place, i) => (
               <PlaceCard place={place} onClick={() => this.setCurrentPlace(place)}/>
             ))
