@@ -81,20 +81,36 @@ class CityHome extends React.Component {
     return(
       <div>
         <h3>CityHome</h3>
-        <h5>{ this.props.currentUser.name }</h5>
-        <h6>{ this.props.currentUser.country }</h6>
 
         <div>
-          <button type="button" name="museum" onClick={this.handleCategory}>museums</button>
-          <button type="button" name="garden" onClick={this.handleCategory}>gardens</button>
+          <h5>{ this.props.currentUser.name }</h5>
+          <h6>{ this.props.currentUser.country }</h6>
+          <img src={ this.props.currentUser.shield } alt="CityShield"/>
         </div>
 
-        <input value={this.state.search} onChange={this.handleSearch} placeholder="Search..."/>
+        <form onSubmit={this.handleLogout}>
+          <button type="submit">Log out</button>
+        </form>
+
+        <div>
+          <button type="button" name="building" onClick={this.handleCategory}>buildings</button>
+          <button type="button" name="garden" onClick={this.handleCategory}>gardens</button>
+          <button type="button" name="monument" onClick={this.handleCategory}>monuments</button>
+          <button type="button" name="museum" onClick={this.handleCategory}>museums</button>
+          <button type="button" name="square" onClick={this.handleCategory}>squares</button>
+          <button type="button" name="worship" onClick={this.handleCategory}>worship</button>
+        </div>
+
+        <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..."/>
 
         <div>
           <button type="button" name="cityRate" onClick={this.handleSort}>City Rate</button>
           <button type="button" name="touristRate" onClick={this.handleSort}>Tourist Rate</button>
         </div>
+
+        <div>
+            <Link to={'/places/new'}>Add Place</Link>
+          </div>
 
         <div>
           <h5>Places</h5>
@@ -105,13 +121,8 @@ class CityHome extends React.Component {
               </Link>
             ))}
           </div>
-        </div>
 
-        <form onSubmit={this.handleLogout}>
-          <button type="submit">
-            Log out
-          </button>
-        </form>
+        </div>
 
       </div>
     )

@@ -1,0 +1,125 @@
+#routeForm-places {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 15vh;
+}
+
+#routeForm-sectionTitle {
+  margin: 6vh 0 1.5vh 0 !important;
+  font-size: 1.5rem;
+  color: #be8eae;
+  margin-bottom: 3vh;
+  font-weight: 700
+}
+
+#routeForm-dataRoute {
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 0
+}
+
+#routeForm-dataDate {
+  margin: 1vh 1vh;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #43484d
+}
+
+#routeForm-section {
+ margin: 1vh;
+ width: 90vh;
+}
+
+#routeForm-sectionPrev {
+  margin: 3vh
+ }
+
+#routeForm-button {
+  padding: 0.5vh;
+  border-color: #be8eae;
+  color: #c89fba;
+  font-weight: 700;
+  width: 11vh;
+  margin: 0.3vh 1vh 
+}
+
+#routeForm-button:hover {
+  border-color: #be8eae;
+  color: white;
+  background-color: #c89fba;
+  font-weight: 700;
+}
+
+#routeForm-button-data {
+  padding: 0.5vh;
+  border-color: #be8eae;
+  color: #c89fba;
+  font-size: 1.5vh;
+  font-weight: 700;
+  width: 11vh;
+  margin: 0.3vh 1vh 
+}
+
+#routeForm-button-data:hover {
+  border-color: #be8eae;
+  color: white;
+  background-color: #c89fba;
+  font-weight: 700;
+}
+#routeForm-buttonDay {
+  padding: 0.2vh;
+  border-color: #be8eae;
+  color: #c89fba;
+  font-size: 1.5vh;
+  font-weight: 700;
+  height: 3vh;;
+  width: 7vh;
+  margin: 0.3vh 1vh 
+}
+
+#routeForm-buttonDay:hover {
+  border-color: #be8eae;
+  color: white;
+  background-color: #c89fba;
+  font-weight: 700;
+}
+
+#routeForm-input {
+  margin: 0.3vh 0;
+  border: 1px solid #be8eae;
+  background-color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  color: #43484d;
+  font-size: 0.9rem
+}
+
+#routeForm-input:focus {
+  background-color: #f8f3f7;
+}
+
+#routeForm-input::placeholder {
+  color: #d1b0c6
+}
+
+#routeForm-input-data {
+  width: 50vh;
+  margin: 0.3vh 0;
+  border: 1px solid #be8eae;
+  background-color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  color: #43484d;
+  font-size: 0.9rem
+}
+
+#routeForm-input-data:focus {
+  background-color: #f8f3f7;
+}
+
+#routeForm-input-data::placeholder {
+  color: #d1b0c6
+}

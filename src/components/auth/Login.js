@@ -2,6 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 import RoutristService from '../../services/RoutristService'
+import routristLogo from '../../images/routristLogo.png'
+import '../../stylesheets/Login.css'
+import '../../stylesheets/Form.css'
+import '../../stylesheets/font.css'
 
 // eslint-disable-next-line
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -80,70 +84,72 @@ class Login extends React.Component {
 
     return(
       <div>
-        <div>
-          <h3>Login</h3>
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={data.email}
-                onBlur={this.handleBlur}
-                onChange={this.handleChange}
-              />
-              {touch.email && errors.email && (
-                <div>
-                  Invalid email format
-                </div>
-              )}
-            </div>
+        <div id='login-container'>
+          <img src={routristLogo} alt="routristLogo" id="login-logo"/>
 
-            <div>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={data.password}
-                onBlur={this.handleBlur}
-                onChange={this.handleChange}
-              />
-            </div>
+          <form onSubmit={this.handleSubmit} id="form-container">
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={data.email}
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              id="form-input"
+            />
+            {touch.email && errors.email && (
+              <div id="form-error">
+                Invalid email format
+              </div>
+            )}
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={data.password}
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              id="form-input"
+            />
 
             {this.state.invalid === true && (
-              <div>
+              <div id="form-error">
                 Invalid email or password
               </div>
             )}
 
-            <button disabled={anyError} type="submit">
+            <button disabled={anyError} type="submit" id="form-submitButton" className="btn btn-outline-primary" aria-disabled="true">
               Log in
             </button>
 
           </form>
+
+          <div>
+            <h6 id="login-signUp">Sign up as ·
+              <Link to={{
+                pathname:'/signup',
+                state: { 
+                  userType: 'city' 
+                }
+              }} id="login-link">
+                City
+              </Link>
+               · or · 
+              <Link to={{
+                pathname:'/signup',
+                state: { 
+                  userType: 'tourist' 
+                }
+              }} id="login-link">
+                 Tourist·
+              </Link>
+
+            </h6>
+          </div>
+          
         </div>
 
-        <div>
-          <h6>Sign up:</h6>
-
-          <Link to={{
-            pathname:'/signup',
-            state: { 
-              userType: 'city' 
-            }
-          }}>
-            City
-          </Link>
-
-          <Link to={{
-            pathname:'/signup',
-            state: { 
-              userType: 'tourist' 
-            }
-          }}>
-            Tourist
-          </Link>
-        </div>
       </div>
     )
   }

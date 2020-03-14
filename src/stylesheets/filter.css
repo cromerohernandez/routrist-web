@@ -1,0 +1,18 @@
+#filter-inputSearch {
+  width: 40vh;
+  margin: 1.5vh 0 0.5vh 0;
+  border: 1px solid #be8eae;
+  background-color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  color: #43484d;
+  font-size: 0.9rem
+}
+
+#filter-inputSearch:focus {
+  background-color: #f8f3f7;
+}
+
+#filter-inputSearch::placeholder {
+  color: #d1b0c6
+}

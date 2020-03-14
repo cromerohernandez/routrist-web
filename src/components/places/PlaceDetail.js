@@ -4,7 +4,7 @@ import RoutristService from '../../services/RoutristService'
 
 class PlaceDetail extends React.Component {
   state= {
-    place: []
+    place: {}
   }
 
   componentDidMount() {
@@ -17,11 +17,12 @@ class PlaceDetail extends React.Component {
   }
 
   render() {
-    const { name, category, cityRate, touristsRate } = this.state.place
+    const { name, category, cityRate, touristsRate, photo } = this.state.place
 
     return (
       <div>
         <h5>{name}</h5>
+        <img src={ photo } alt="PlacePhoto"/>
         <h6>category: {category}</h6>
         <h6>City Rate: {cityRate}</h6>
         <h6>Tourists Rate: {touristsRate}</h6>

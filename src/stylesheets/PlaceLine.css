@@ -1,0 +1,26 @@
+#placeLine-container{
+  height: 22vh;
+  width: 15vh;
+  border: 1px #be8eae solid;
+  border-radius: 2vh;
+  padding: 1.5vh;
+  margin: 1vh 0.5vh;
+  text-decoration: none;
+  color: #43484d;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#placeLine-name{
+  font-size: 1.7vh
+}
+
+#placeLine-time{
+  font-size: 1.2vh
+}
+
+#placeLine-photo{
+  height: 10vh;
+  width: auto;
+}
