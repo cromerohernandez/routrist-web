@@ -1,0 +1,36 @@
+/*btn-filter*/
+.btn-filter-on {
+  height: 6vh;
+  width: 6vh;
+  border: solid 1px;
+  border-radius: 3vh;
+  border-color: #be8eae;
+  color: white;
+  background-color: #c89fba;
+  font-weight: 700
+}
+
+.btn-filter-on:hover {
+  color: #be8eae;
+  background-color: white;
+}
+
+.btn-filter-on:focus {
+  outline: none
+}
+
+.btn-filter-off {
+  height: 6vh;
+  width: 6vh;
+  border: solid 1px;
+  border-radius: 3vh;;
+  border-color: #be8eae;
+  color: #be8eae;
+  background-color: white;
+  font-weight: 700;
+  outline: none
+}
+
+.btn-filter-off:focus {
+  outline: none
+}
