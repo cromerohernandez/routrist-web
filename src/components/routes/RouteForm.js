@@ -295,12 +295,12 @@ class RouteForm extends React.Component {
 
               <div id='routeForm-section'>
                 <div>
-                  <button type="button" name="building" onClick={this.handleCategory} className={filter.category.includes('building') ? "btn-filter-on" : "btn-filter-off"}>buildings</button>
-                  <button type="button" name="garden" onClick={this.handleCategory} className={filter.category.includes('garden') ? "btn-filter-on" : "btn-filter-off"}>gardens</button>
-                  <button type="button" name="monument" onClick={this.handleCategory} className={filter.category.includes('monument') ? "btn-filter-on" : "btn-filter-off"}>monuments</button>
-                  <button type="button" name="museum" onClick={this.handleCategory} className={filter.category.includes('museum') ? "btn-filter-on" : "btn-filter-off"}>museums</button>
-                  <button type="button" name="square" onClick={this.handleCategory} className={filter.category.includes('square') ? "btn-filter-on" : "btn-filter-off"}>squares</button>
-                  <button type="button" name="worship" onClick={this.handleCategory} className={filter.category.includes('worship') ? "btn-filter-on" : "btn-filter-off"}>worship</button>
+                  <button type="button" name="building" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('building') ? " btn-filter-on" : " btn-filter-off")}>buildings</button>
+                  <button type="button" name="garden" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('garden') ? " btn-filter-on" : " btn-filter-off")}>gardens</button>
+                  <button type="button" name="monument" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('monument') ? " btn-filter-on" : " btn-filter-off")}>monuments</button>
+                  <button type="button" name="museum" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('museum') ? " btn-filter-on" : " btn-filter-off")}>museums</button>
+                  <button type="button" name="square" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('square') ? " btn-filter-on" : " btn-filter-off")}>squares</button>
+                  <button type="button" name="worship" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('worship') ? " btn-filter-on" : " btn-filter-off")}>worship</button>
                 </div>
 
                 <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..." id='routeForm-input'/>

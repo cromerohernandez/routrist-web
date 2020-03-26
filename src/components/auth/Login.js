@@ -12,7 +12,6 @@ const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\"
 
 const validators = {
   email: val => val.match(EMAIL_PATTERN),
-  password: val => val ? true : false
 }
 
 class Login extends React.Component {
@@ -22,8 +21,7 @@ class Login extends React.Component {
         password: ''
       },
       errors: {
-        email: true,
-        password: true
+        email: true
       },
       touch: {},
       invalid: false
@@ -108,7 +106,6 @@ class Login extends React.Component {
               name="password"
               placeholder="Password"
               value={data.password}
-              onBlur={this.handleBlur}
               onChange={this.handleChange}
               id="form-input"
             />
