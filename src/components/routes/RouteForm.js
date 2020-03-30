@@ -3,9 +3,24 @@ import { Link, Redirect } from 'react-router-dom'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 import RoutristService from '../../services/RoutristService'
 import filtersHelper from '../../helpers/filtersHelper'
+
 import PlaceCard from '../places/PlaceCard'
 import CurrentJourney from '../journeys/CurrentJourney'
 import TouristProfile from '../tourists/TouristProfile'
+
+import buildingIconOn from '../../images/buildingIconOn.png'
+import buildingIconOff from '../../images/buildingIconOff.png'
+import gardenIconOn from '../../images/gardenIconOn.png'
+import gardenIconOff from '../../images/gardenIconOff.png'
+import monumentIconOn from '../../images/monumentIconOn.png'
+import monumentIconOff from '../../images/monumentIconOff.png'
+import museumIconOn from '../../images/museumIconOn.png'
+import museumIconOff from '../../images/museumIconOff.png'
+import squareIconOn from '../../images/squareIconOn.png'
+import squareIconOff from '../../images/squareIconOff.png'
+import worshipIconOn from '../../images/worshipIconOn.png'
+import worshipIconOff from '../../images/worshipIconOff.png'
+
 import '../../stylesheets/RouteForm.css'
 import '../../stylesheets/buttons.css'
 
@@ -26,6 +41,7 @@ class RouteForm extends React.Component {
       sortDirection: 'desc',
       name: ''
     },
+    detailCategory: '',
     startDate: null,
     places: []
   }
@@ -103,6 +119,20 @@ class RouteForm extends React.Component {
         ...this.state.filter,
         category: newCategory
       }
+    })
+  }
+
+  handleDetailCategory = (event) => {
+    const { name } = event.target
+
+    this.setState({
+      detailCategory: name
+    })
+  }
+
+  handleResetDetailCategory = () => {
+    this.setState({
+      detailCategory: ''
     })
   }
 
@@ -222,8 +252,14 @@ class RouteForm extends React.Component {
       )
   }
 
+
+
+
+
+
+
   render() {
-    const { data, journeys, currentJourney, currentPlace, currentVisitingTime, cities, filter, startDate, places } = this.state
+    const { data, journeys, currentJourney, currentPlace, currentVisitingTime, cities, filter, detailCategory, startDate, places } = this.state
 
     return (
       <div>
@@ -252,7 +288,7 @@ class RouteForm extends React.Component {
         </div>
 
         <div>
-          {places.length > 0 && startDate &&
+          {(filter.city && startDate) &&
             <div id='routeForm-section'>
               <div>
                 
@@ -291,16 +327,118 @@ class RouteForm extends React.Component {
                 }
               </div>
 
-                <hr/>
+              <hr/>
 
               <div id='routeForm-section'>
-                <div>
-                  <button type="button" name="building" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('building') ? " btn-filter-on" : " btn-filter-off")}>buildings</button>
-                  <button type="button" name="garden" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('garden') ? " btn-filter-on" : " btn-filter-off")}>gardens</button>
-                  <button type="button" name="monument" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('monument') ? " btn-filter-on" : " btn-filter-off")}>monuments</button>
-                  <button type="button" name="museum" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('museum') ? " btn-filter-on" : " btn-filter-off")}>museums</button>
-                  <button type="button" name="square" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('square') ? " btn-filter-on" : " btn-filter-off")}>squares</button>
-                  <button type="button" name="worship" onClick={this.handleCategory} className={"btn-filter" + (filter.category.includes('worship') ? " btn-filter-on" : " btn-filter-off")}>worship</button>
+                <div id='routeForm-buttonsFilter'>
+                  <div className="btn-filter-container">
+                    <button type="button" className={"btn-filter" + (filter.category.includes('building') ? " btn-filter-on" : " btn-filter-off")}>
+                      <img 
+                        src={filter.category.includes('building') ? buildingIconOn : buildingIconOff}
+                        alt="buildingIconOn"
+                        name="building"
+                        onClick={this.handleCategory}
+                        onMouseOver={this.handleDetailCategory}
+                        onMouseOut={this.handleResetDetailCategory}
+                        className="btn-filter-img"
+                      />
+                    </button>
+
+                    {detailCategory === 'building' && (
+                      <h6 className="btn-filter-detail">buildings</h6>
+                    )}
+                  </div>
+
+                  <div className="btn-filter-container">
+                    <button type="button" className={"btn-filter" + (filter.category.includes('garden') ? " btn-filter-on" : " btn-filter-off")}>
+                      <img 
+                        src={filter.category.includes('garden') ? gardenIconOn : gardenIconOff}
+                        alt="gardenIconOn"
+                        name="garden"
+                        onClick={this.handleCategory}
+                        onMouseOver={this.handleDetailCategory}
+                        onMouseOut={this.handleResetDetailCategory}
+                        className="btn-filter-img"
+                      />
+                    </button>
+
+                    {detailCategory === 'garden' && (
+                      <h6 className="btn-filter-detail">gardens</h6>
+                    )}
+                  </div>
+
+                  <div className="btn-filter-container">
+                    <button type="button" className={"btn-filter" + (filter.category.includes('monument') ? " btn-filter-on" : " btn-filter-off")}>
+                      <img 
+                        src={filter.category.includes('monument') ? monumentIconOn : monumentIconOff}
+                        alt="monumentIconOn"
+                        name="monument"
+                        onClick={this.handleCategory}
+                        onMouseOver={this.handleDetailCategory}
+                        onMouseOut={this.handleResetDetailCategory}
+                        className="btn-filter-img"
+                      />
+                    </button>
+
+                    {detailCategory === 'monument' && (
+                      <h6 className="btn-filter-detail">monuments</h6>
+                    )}
+                  </div>
+
+                  <div className="btn-filter-container">
+                    <button type="button" className={"btn-filter" + (filter.category.includes('museum') ? " btn-filter-on" : " btn-filter-off")}>
+                      <img 
+                        src={filter.category.includes('museum') ? museumIconOn : museumIconOff}
+                        alt="museumIconOn"
+                        name="museum"
+                        onClick={this.handleCategory}
+                        onMouseOver={this.handleDetailCategory}
+                        onMouseOut={this.handleResetDetailCategory}
+                        className="btn-filter-img"
+                      />
+                    </button>
+
+                    {detailCategory === 'museum' && (
+                      <h6 className="btn-filter-detail">museums</h6>
+                    )}
+                  </div>
+
+                  <div className="btn-filter-container">
+                    <button type="button" className={"btn-filter" + (filter.category.includes('square') ? " btn-filter-on" : " btn-filter-off")}>
+                      <img 
+                        src={filter.category.includes('square') ? squareIconOn : squareIconOff}
+                        alt="squareIconOn"
+                        name="square"
+                        onClick={this.handleCategory}
+                        onMouseOver={this.handleDetailCategory}
+                        onMouseOut={this.handleResetDetailCategory}
+                        className="btn-filter-img"
+                      />
+                    </button>
+
+                    {detailCategory === 'square' && (
+                      <h6 className="btn-filter-detail">squares</h6>
+                    )}
+                  </div>
+
+                  <div className="btn-filter-container">
+                    <button type="button" className={"btn-filter" + (filter.category.includes('worship') ? " btn-filter-on" : " btn-filter-off")}>
+                      <img 
+                        src={filter.category.includes('worship') ? worshipIconOn : worshipIconOff}
+                        alt="worshipIconOn"
+                        name="worship"
+                        onClick={this.handleCategory}
+                        onMouseOver={this.handleDetailCategory}
+                        onMouseOut={this.handleResetDetailCategory}
+                        className="btn-filter-img"
+                      />
+                    </button>
+
+                    {detailCategory === 'worship' && (
+                      <h6 className="btn-filter-detail">worship</h6>
+                    )}
+                  </div>
+
                 </div>
 
                 <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..." id='routeForm-input'/>
@@ -317,6 +455,10 @@ class RouteForm extends React.Component {
                 {places.map((place, i) => (
                   <PlaceCard place={place} onClick={() => this.setCurrentPlace(place)} key={i}/>
                 ))}
+
+                {places.length === 0 && (
+                  <h6>No places found matching the selected filters</h6>
+                )}
               </div>
             </div>
           }
