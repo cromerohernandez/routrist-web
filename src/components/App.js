@@ -7,7 +7,7 @@ import Home from './misc/Home'
 import Signup from './auth/Signup'
 import PlaceForm from './places/PlaceForm'
 import PlaceDetail from '../components/places/PlaceDetail'
-import RouteForm from '../components/routes/RouteForm'
+import RouteForm from '../components/routes/TesterRouteForm'
 import RouteDetail from '../components/routes/RouteDetail'
 
 function App(props) {
