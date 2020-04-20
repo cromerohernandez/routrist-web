@@ -2,32 +2,20 @@ import React from 'react'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 import { WithFilterConsumer } from '../../contexts/FilterContext'
 
-import buildingIconOn from '../../images/buildingIconOn.png'
-import buildingIconOff from '../../images/buildingIconOff.png'
-import gardenIconOn from '../../images/gardenIconOn.png'
-import gardenIconOff from '../../images/gardenIconOff.png'
-import monumentIconOn from '../../images/monumentIconOn.png'
-import monumentIconOff from '../../images/monumentIconOff.png'
-import museumIconOn from '../../images/museumIconOn.png'
-import museumIconOff from '../../images/museumIconOff.png'
-import squareIconOn from '../../images/squareIconOn.png'
-import squareIconOff from '../../images/squareIconOff.png'
-import worshipIconOn from '../../images/worshipIconOn.png'
-import worshipIconOff from '../../images/worshipIconOff.png'
-
-
 import '../../stylesheets/buttons.css'
 
 class FilterButton extends React.Component {
 
   render() {
-    const { category, filter, detailCategory, setCategory, setOverCategory, resetOverCategory } = this.props
+    const { category, filter, overCategory, setCategory, setOverCategory, resetOverCategory } = this.props
+    const iconOn = require(`../../images/${category}IconOn.png`)
+    const iconOff = require(`../../images/${category}IconOff.png`)
 
     return(
       <div className="btn-filter-container">
         <button type="button" className={"btn-filter" + (filter.category.includes(category) ? " btn-filter-on" : " btn-filter-off")}>
           <img 
-            src={filter.category.includes(category) ? buildingIconOn : buildingIconOff}  /*?????????????????????????????????????????????????????????*/
+            src={filter.category.includes(category) ? iconOn : iconOff}
             alt={`${category}Icon`}
             name={category}
             onClick={setCategory}
@@ -37,8 +25,8 @@ class FilterButton extends React.Component {
           />
         </button>
 
-        {detailCategory === category && (
-          <h6 className="btn-filter-detail">{category}</h6>
+        {overCategory === category && (
+          <h6 className="btn-filter-detail">{category}s</h6>
         )}
       </div>
     )

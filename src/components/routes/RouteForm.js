@@ -37,9 +37,9 @@ class RouteForm extends React.Component {
     filter: {
       city: '',
       category: ['museum', 'garden', 'building', 'worship', 'monument', 'square'],
+      name: '',
       sort: 'cityRate',
-      sortDirection: 'desc',
-      name: ''
+      sortDirection: 'desc'
     },
     detailCategory: '',
     startDate: null,
