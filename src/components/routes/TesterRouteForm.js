@@ -10,9 +10,9 @@ import CurrentJourney from '../journeys/CurrentJourney'
 import TouristProfile from '../tourists/TouristProfile'
 import FilterButtonCategory from '../filter/FilterButtonCategory'
 import FilterButtonSort from '../filter/FilterButtonSort'
+import FilterInputSearch from '../filter/FilterInputSearch'
 
 import '../../stylesheets/RouteForm.css'
-import '../../stylesheets/buttons.css'
 
 class RouteForm extends React.Component {
   state = {
@@ -43,15 +43,6 @@ class RouteForm extends React.Component {
 
     this.setState({
       startDate: value
-    })
-  }
-
-  handleSearch = (event) => {
-    this.setState({
-      filter: {
-        ...this.state.filter,
-        name: event.target.value
-      }
     })
   }
 
@@ -229,14 +220,11 @@ class RouteForm extends React.Component {
                   <FilterButtonCategory category={'temple'} />
                 </div>
 
-                <input value={filter.name} onChange={this.handleSearch} placeholder="Search..." id='routeForm-input'/>
+                <FilterInputSearch />
 
                 <div>
                   <FilterButtonSort sortCriteria={'city'} />
                   <FilterButtonSort sortCriteria={'tourist'} />
-
-                  <button type="button" name="cityRate" onClick={this.handleSort} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">City Rate</button>
-                  <button type="button" name="touristRate" onClick={this.handleSort} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">Tourist Rate</button>
                 </div>
               </div>
 

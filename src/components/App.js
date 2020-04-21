@@ -1,6 +1,7 @@
 import React from 'react'
 import '../stylesheets/App.css'
 import { Switch, Route, Redirect } from 'react-router-dom'
+import { FilterContextProvider } from '../contexts/FilterContext'
 import { WithAuthConsumer } from '../contexts/AuthContext'
 //import AuthRoute from '../components/auth/AuthenticatedRoute' ////////////USAR!!!!
 import Home from './misc/Home'
@@ -21,7 +22,15 @@ function App(props) {
         <Route exact path="/places/new" component={ PlaceForm }/>
         <Route exact path="/places/:id" component={ PlaceDetail }/>
 
-        <Route exact path="/routes/new" component={ RouteForm }/>
+        <Route 
+          exact
+          path="/routes/new" 
+          render={routeProps => (
+            <FilterContextProvider>
+              <RouteForm {...routeProps} />
+            </FilterContextProvider>
+          )}
+        />
         <Route exact path="/routes/:id" component={ RouteDetail }/>
 
         <Redirect to="/"/>

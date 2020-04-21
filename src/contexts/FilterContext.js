@@ -104,6 +104,15 @@ export class FilterContextProvider extends React.Component {
     })
   }
 
+  setSearch = (event) => {
+    this.setState({
+      filter: {
+        ...this.state.filter,
+        name: event.target.value
+      }
+    })
+  }
+
   render() {
     const value = {
       cities: this.state.cities,
@@ -115,6 +124,7 @@ export class FilterContextProvider extends React.Component {
       setOverCategory: this.setOverCategory,
       resetOverCategory: this.resetOverCategory,
       setSort: this.setSort,
+      setSearch: this.setSearch
     }
 
     return (
