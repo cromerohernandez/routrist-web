@@ -4,7 +4,7 @@ import { WithFilterConsumer } from '../../contexts/FilterContext'
 
 import '../../stylesheets/buttons.css'
 
-class FilterButton extends React.Component {
+class FilterButtonCategory extends React.Component {
 
   render() {
     const { category, filter, overCategory, setCategory, setOverCategory, resetOverCategory } = this.props
@@ -33,4 +33,4 @@ class FilterButton extends React.Component {
   }
 }
 
-export default WithAuthConsumer(WithFilterConsumer(FilterButton))
+export default WithAuthConsumer(WithFilterConsumer(FilterButtonCategory))

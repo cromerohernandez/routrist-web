@@ -8,7 +8,8 @@ import filtersHelper from '../../helpers/filtersHelper'
 import PlaceCard from '../places/PlaceCard'
 import CurrentJourney from '../journeys/CurrentJourney'
 import TouristProfile from '../tourists/TouristProfile'
-import FilterButton from '../filter/FilterButton'
+import FilterButtonCategory from '../filter/FilterButtonCategory'
+import FilterButtonSort from '../filter/FilterButtonSort'
 
 import '../../stylesheets/RouteForm.css'
 import '../../stylesheets/buttons.css'
@@ -26,29 +27,6 @@ class RouteForm extends React.Component {
     startDate: null,
   }
   
-  componentDidMount() {
-    if (!this.props.filter.city) {
-      this.getCities()
-    }
-  }
-
-  /*componentDidUpdate(prevProps, prevState) {
-    if(prevState.filter !== this.state.filter) {
-      if (this.state.filter.city) {
-        this.getPlaces()
-      } else {
-        this.getCities()
-      }
-    }
-  }*/
-
-  getCities = () => {
-    RoutristService.getCities()
-      .then(cities => {
-        this.setState({ cities })
-      })
-  }
-
   handleChange = (event) => {
     const { name, value } = event.target
 
@@ -65,30 +43,6 @@ class RouteForm extends React.Component {
 
     this.setState({
       startDate: value
-    })
-  }
-
-  setCity = (event) => {
-    const { value } = event.target
-
-    this.setState({
-      filter: {
-        ...this.state.filter,
-        city: value
-      }
-    })
-  }
-
-  handleSort = (event) => {
-    const { name } = event.target
-    const newSortCriteria = filtersHelper.setSort(this.state.filter.sort, this.state.filter.sortDirection, name)
-
-    this.setState({
-      filter: {
-        ...this.state.filter,
-        sort: newSortCriteria.sort,
-        sortDirection: newSortCriteria.sortDirection,
-      }
     })
   }
 
@@ -196,8 +150,8 @@ class RouteForm extends React.Component {
   }
 
   render() {
-    const { data, journeys, currentJourney, currentPlace, currentVisitingTime, cities, startDate } = this.state
-    const { filter, places } = this.props
+    const { data, journeys, currentJourney, currentPlace, currentVisitingTime, startDate } = this.state
+    const { cities, filter, places, setCity } = this.props
 
     return (
       <div>
@@ -218,7 +172,7 @@ class RouteForm extends React.Component {
               <div  id='routeForm-sectionPrev'>
                 <h6>Select a city</h6>
                 {cities.map((city, i) => (
-                  <button type="button" name={city.name} value={city.id} onClick={this.setCity} key={i} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">{city.name}</button>
+                  <button type="button" name={city.name} value={city.id} onClick={setCity} key={i} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">{city.name}</button>
                 ))}
               </div>
             </div>
@@ -267,17 +221,20 @@ class RouteForm extends React.Component {
 
               <div id='routeForm-section'>
                 <div id='routeForm-buttonsFilter'>
-                  <FilterButton category={'building'}/>
-                  <FilterButton category={'garden'}/>
-                  <FilterButton category={'monument'}/>
-                  <FilterButton category={'museum'}/>
-                  <FilterButton category={'square'}/>
-                  <FilterButton category={'temple'}/>
+                  <FilterButtonCategory category={'building'} />
+                  <FilterButtonCategory category={'garden'} />
+                  <FilterButtonCategory category={'monument'} />
+                  <FilterButtonCategory category={'museum'} />
+                  <FilterButtonCategory category={'square'} />
+                  <FilterButtonCategory category={'temple'} />
                 </div>
 
-                <input value={this.state.filter.name} onChange={this.handleSearch} placeholder="Search..." id='routeForm-input'/>
+                <input value={filter.name} onChange={this.handleSearch} placeholder="Search..." id='routeForm-input'/>
 
                 <div>
+                  <FilterButtonSort sortCriteria={'city'} />
+                  <FilterButtonSort sortCriteria={'tourist'} />
+
                   <button type="button" name="cityRate" onClick={this.handleSort} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">City Rate</button>
                   <button type="button" name="touristRate" onClick={this.handleSort} id='routeForm-button' className="btn btn-outline-primary" aria-disabled="true">Tourist Rate</button>
                 </div>

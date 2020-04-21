@@ -6,6 +6,7 @@ const FilterContext = React.createContext()
 
 export class FilterContextProvider extends React.Component {
   state = {
+    cities: [],
     filter: {
       city: '',
       category: ['building', 'garden', 'monument', 'museum', 'square', 'temple'],
@@ -19,20 +20,20 @@ export class FilterContextProvider extends React.Component {
   }
 
   componentDidMount() {
-    /*if (this.state.filter.city) {*/
+    if (this.state.filter.city) {
       this.getPlaces()
-    /*} else {
+    } else {
       this.getCities()
-    }*/
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if(prevState.filter !== this.state.filter) {
-      /*if (this.state.filter.city) {*/
+      if (this.state.filter.city) {
         this.getPlaces()
-      /*} else {
+      } else {
         this.getCities()
-      }*/
+      }
     }
   }
 
@@ -50,6 +51,17 @@ export class FilterContextProvider extends React.Component {
       .then(places => {
         this.setState({ places })
       })
+  }
+
+  setCity = (event) => {
+    const { value } = event.target
+
+    this.setState({
+      filter: {
+        ...this.state.filter,
+        city: value
+      }
+    })
   }
 
   setCategory = (event) => {
@@ -78,14 +90,31 @@ export class FilterContextProvider extends React.Component {
     })
   }
 
+  setSort = (event) => {
+    const { name } = event.target
+    const { sort, sortDirection } = this.state.filter
+    const newSortCriteria = filtersHelper.setSort(sort, sortDirection, name)
+
+    this.setState({
+      filter: {
+        ...this.state.filter,
+        sort: newSortCriteria.sort,
+        sortDirection: newSortCriteria.sortDirection,
+      }
+    })
+  }
+
   render() {
     const value = {
+      cities: this.state.cities,
       filter: this.state.filter,
       overCategory: this.state.overCategory,
       places: this.state.places,
+      setCity: this.setCity,
       setCategory: this.setCategory,
       setOverCategory: this.setOverCategory,
-      resetOverCategory: this.resetOverCategory
+      resetOverCategory: this.resetOverCategory,
+      setSort: this.setSort,
     }
 
     return (
