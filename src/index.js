@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 ReactDOM.render(
   <BrowserRouter>
     <AuthContextProvider>
-      <App />
+        <App />
     </AuthContextProvider>
   </BrowserRouter>,
   document.getElementById('root')

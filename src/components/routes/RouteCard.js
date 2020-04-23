@@ -3,7 +3,6 @@ import '../../stylesheets/RouteCard.css'
 
 const RouteCard = ({ route }) => {
   const { name, city } = route
-  console.log(route)
 
   return (
     <div id='routeCard-div'>
